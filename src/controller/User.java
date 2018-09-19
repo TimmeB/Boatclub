@@ -17,17 +17,14 @@ public class User {
 		
 		c_view.displayMenu();
 		
-		return readAction();
+		return readInput();
 	}
 	
 	
-	public boolean readAction() {
-		int input = c_view.readAction();
+	public boolean readInput() {
+		int input = c_view.readInput();
 		
-		if (input < 1 || input > 4) {
-			c_view.displayInputError();
-			return true;
-		}
+		//Add something that prints error message for invalid input
 		
 		switch (input) {
 		case 1: return createMember();

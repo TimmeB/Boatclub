@@ -22,20 +22,19 @@ public class Console {
 		
 	}
 	
-	public int readAction() {
-		Scanner scan = new Scanner(System.in);
-		int option = scan.nextInt();
-		scan.close();
-		return option;
+	public int readInput() {
+		Scanner scan = new Scanner(System.in);						//closing scanner creates error
+		int input = scan.nextInt();
+		
+		return input;
 	}
 	
 	
 	
 	public String askForName() {
 		System.out.println("Enter name:");
-		Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);						//closing scanner creates error
 		String name = scan.nextLine();
-		scan.close();
 		return name;
 	}
 	
