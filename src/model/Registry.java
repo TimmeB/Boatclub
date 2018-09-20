@@ -9,13 +9,17 @@ public class Registry {
 		memberList = new ArrayList<>();
 	}
 	
-	public void createMember(String name, int pNum) {
+	public void createMember(String name, String pNum) {
 		Member member = new Member(name, pNum);
 		memberList.add(member);
-		System.out.println("hej");
 	}
 	
 	public String toString() {
-		return memberList.get(0).getMemberName() + " " + memberList.get(0).getMemberpNum();
+		String list = "";
+		for (int i = 0; i < memberList.size(); i++) {
+			list += memberList.get(i).getMemberName() + " " + memberList.get(i).getMemberpNum() + " ID: " + memberList.get(i).getMemberID() + "\n";
+		}
+		//return memberList.get(0).getMemberName() + " " + memberList.get(0).getMemberpNum() + " ID: " + memberList.get(0).getMemberID();
+		return list;
 	}
 }

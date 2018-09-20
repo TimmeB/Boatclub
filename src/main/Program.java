@@ -15,7 +15,6 @@ public class Program {
 		while(user.startProgram(console, registry)) {
 			
 		}
-		System.out.println("Application closed");
 		
 	}
 	

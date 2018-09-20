@@ -24,12 +24,10 @@ public class User {
 	public boolean readInput() {
 		int input = c_view.readInput();
 		
-		//Add something that prints error message for invalid input
-		
 		switch (input) {
 		case 1: return createMember();
-		case 2: return testOption();
-		case 3: return listMembers();
+		case 2: return listMembers();
+		case 3: return testOption();
 		case 4: return quit();
 		}
 		return true;
@@ -37,23 +35,70 @@ public class User {
 	
 	public boolean createMember() {
 		String name = c_view.askForName();
-		int pNum = 123;								//Replace with method similar to askForName in Console
+		String pNum = c_view.askForPNum();								//Replace with method similar to askForName in Console
 		
 		registry.createMember(name, pNum);
 		
 		return true;
 	}
 	public boolean testOption() {
-		System.out.println("asd");
+		System.out.println("Bitch-ass Johnson");
 		return true;
 	}
 	
 	public boolean listMembers() {
-		c_view.displayMembers(registry);
-		return true;
+		while(true) {
+			c_view.listMembersMenu();
+			int input = c_view.readInput();
+			int lowest = 1, max = 3;
+			if (inputIsInvalid(input, lowest, max)) {
+				c_view.displayInputError();
+				continue;
+			}
+			else {
+				switch (input) {
+				case 1: c_view.displayMembers(registry);					//Create method for compact list
+				case 2: c_view.displayMembers(registry);					//Create method for verbose list
+				case 3: return true;
+				}
+			}		
+		}
+	}
+	
+	public boolean areYouSure() {
+		int yes = 1;
+		while (true) {
+			c_view.verifyChoice();
+			int input = c_view.readInput();
+			int lowest = 1, max = 2;
+			if (inputIsInvalid(input, lowest, max)) {
+				c_view.displayInputError();
+				continue;
+			}
+			else if (input == yes) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		
+	} 
+	
+	public boolean inputIsInvalid(int input, int lowestValue, int maxValue) {
+		if (input < lowestValue || input > maxValue) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	public boolean quit() {
-		return false;
+		if (areYouSure()) {
+			c_view.displayQuitMessage();
+			return false;
+		}
+		return true;							//Returning true keeps program running
 	}
 	
 
