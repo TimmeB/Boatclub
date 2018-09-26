@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,25 +23,10 @@ public class Registry {
 		writeToMemberList();
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
-		return memberList.get(0).getMemberName() + " " + memberList.get(0).getMemberpNum();
-=======
-	public String toString() {
-		String list = "";
-		for (int i = 0; i < memberList.size(); i++) {
-			list += memberList.get(i).getMemberName() + " " + memberList.get(i).getMemberpNum() + " ID: " + memberList.get(i).getMemberID() + "\n";
-		}
-		//return memberList.get(0).getMemberName() + " " + memberList.get(0).getMemberpNum() + " ID: " + memberList.get(0).getMemberID();
-		return list;
->>>>>>> master
-=======
 
 	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
 		return memberList.get(0).getName() + " " + memberList.get(0).getpNum();
 
->>>>>>> develop
 	}
 	 
 	
