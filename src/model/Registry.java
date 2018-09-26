@@ -25,8 +25,12 @@ public class Registry {
 	
 
 	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
-		return memberList.get(0).getName() + " " + memberList.get(0).getpNum();
-
+		String listStr = "";
+		for (int i = 0; i < memberList.size(); i++) {
+			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + "\n";
+		}
+		//return memberList.get(0).getName() + " " + memberList.get(0).getpNum();
+		return listStr;
 	}
 	 
 	
