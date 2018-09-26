@@ -1,6 +1,9 @@
 package controller;
 
 import view.Console;
+
+import java.io.IOException;
+
 import model.Registry;
 
 public class User {
@@ -12,8 +15,13 @@ public class User {
 	public boolean startProgram(Console console, Registry registry) {
 		c_view = console;
 		this.registry = registry;
+		try {
+			registry.readFromMemberList();
+		}
+		catch (IOException e) {
+			System.out.println(e);
+		}
 		c_view.displayWelcomeMessage();
-		
 		
 		c_view.displayMenu();
 		
@@ -62,7 +70,7 @@ public class User {
 			else {
 				switch (input) {
 				case 1: c_view.displayMembers(registry);					//Create method for compact list
-				case 2: c_view.displayMembers(registry);					//Create method for verbose list
+				case 2: return true;//c_view.displayMembers(registry);					//Create method for verbose list
 				case 3: return true;
 				}
 			}		
@@ -104,6 +112,12 @@ public class User {
 	public boolean quit() {
 		if (areYouSure()) {
 			c_view.displayQuitMessage();
+			try {
+				registry.writeToMemberList();
+			}
+			catch (Exception e) {
+				System.out.println(e);					//Should not be printed in final version
+			}
 			return false;
 		}
 		return true;							//Returning true keeps program running
