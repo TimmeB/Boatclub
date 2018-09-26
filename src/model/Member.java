@@ -1,19 +1,30 @@
 package model;
 
 public class Member {
-	private String name;
-	private int pNum, memberID;
+	private String name, pNum;
+	private int memberID;
+	private static int nextID = 0;
 	
-	public Member(String n, int pn) {
+	public Member() {								//Contructor without arguments is used by ObjectMapper
+		nextID++;
+	}
+	
+	public Member(String n, String pn) {
+		nextID++;
+		
 		name = n;
 		pNum = pn;
+		memberID = nextID;
 	}
 	
 	public String getMemberName() {
 		return name;
 	}
-	public int getMemberpNum() {
+	public String getMemberpNum() {
 		return pNum;
+	}
+	public int getMemberID() {
+		return memberID;
 	}
 	
 	
