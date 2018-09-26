@@ -17,10 +17,10 @@ public class Member {
 		memberID = nextID;
 	}
 	
-	public String getMemberName() {
+	public String getName() {
 		return name;
 	}
-	public String getMemberpNum() {
+	public String getpNum() {
 		return pNum;
 	}
 	public int getMemberID() {
