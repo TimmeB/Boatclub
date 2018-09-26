@@ -28,7 +28,8 @@ public class User {
 		case 1: return createMember();
 		case 2: return listMembers();
 		case 3: return testOption();
-		case 4: return quit();
+		case 4: return editMember();
+		case 5: return quit();
 		}
 		return true;
 	}
@@ -63,6 +64,10 @@ public class User {
 				}
 			}		
 		}
+	}
+	
+	public boolean editMember() {
+		return true;									//NOT STARTED
 	}
 	
 	public boolean areYouSure() {
