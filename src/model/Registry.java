@@ -4,14 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.JsonMappingException;
-=======
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
->>>>>>> develop
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Registry {
@@ -29,34 +26,7 @@ public class Registry {
 		writeToMemberList();
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-/*
->>>>>>> develop
-	public String toString() {
-		String list = "";
-		for (int i = 0; i < memberList.size(); i++) {
-			list += memberList.get(i).getMemberName() + " " + memberList.get(i).getMemberpNum() + " ID: " + memberList.get(i).getMemberID() + "\n";
-		}
-		//return memberList.get(0).getMemberName() + " " + memberList.get(0).getMemberpNum() + " ID: " + memberList.get(0).getMemberID();
-		return list;
-<<<<<<< HEAD
-=======
-	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
-		return memberList.get(0).getMemberName() + " " + memberList.get(0).getMemberpNum();
->>>>>>> erik
-	}
-	 
-	
-	public void writeToMemberList(ArrayList listToBeWrote) throws JsonMappingException {
-		//objectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-		objectMapper.updateValue("C:\\Users\\erikm\\Desktop\\Uppgifter\\OOAD UML 1DV607\\Boatclub", memberList);
-	}
-	
-	public void readFromMemberList() {
-=======
-*/
+
 	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
 		return memberList.get(0).getName() + " " + memberList.get(0).getpNum();
 
@@ -64,13 +34,13 @@ public class Registry {
 	 
 	
 	public void writeToMemberList() throws JsonGenerationException, IOException {
-		objectMapper.writeValue(new File("C:\\Users\\erikm\\Desktop\\Uppgifter\\OOAD UML 1DV607\\Boatclub\\Memberlist.txt"), memberList);
+		objectMapper.writeValue(new File("Memberlist.txt"), memberList);
 	}
 	
 	public void readFromMemberList () throws IOException {
-		memberList = objectMapper.readValue(new File("C:\\Users\\erikm\\Desktop\\Uppgifter\\OOAD UML 1DV607\\Boatclub\\Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
+		memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
 	}
-	
+	/*
 	public static void main (String[] args) throws IOException {
 		Registry registry = new Registry();
 		//registry.createMember("Erik, ", "007");
@@ -79,8 +49,7 @@ public class Registry {
 		
 		registry.readFromMemberList();
 		System.out.println(registry.toString());
-//		
->>>>>>> develop
+
 		
-	}
+	} */
 }

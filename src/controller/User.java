@@ -37,9 +37,12 @@ public class User {
 	public boolean createMember() {
 		String name = c_view.askForName();
 		String pNum = c_view.askForPNum();								//Replace with method similar to askForName in Console
-		
+		try {
 		registry.createMember(name, pNum);
-		
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
 		return true;
 	}
 	public boolean testOption() {
