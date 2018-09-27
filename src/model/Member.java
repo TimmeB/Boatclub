@@ -6,7 +6,7 @@ public class Member {
 	private static int nextID = 0;
 	
 	public Member() {								//Contructor without arguments is used by ObjectMapper
-		nextID++;
+		//nextID++;
 	}
 	
 	public Member(String n, String pn) {
@@ -25,6 +25,12 @@ public class Member {
 	}
 	public int getMemberID() {
 		return memberID;
+	}
+	public void setName(String newName) {
+		name = newName;
+	}
+	public void setpNum(String newpNum) {
+		pNum = newpNum;
 	}
 	
 	

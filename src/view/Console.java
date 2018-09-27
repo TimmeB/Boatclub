@@ -33,7 +33,7 @@ public class Console {
 			//displayInputError() will be called from controller
 		}
 		
-		return 0;
+		return -1;
 	}
 	
 	
@@ -58,7 +58,17 @@ public class Console {
 		System.out.println("How would you like to list members?");
 		System.out.println("1. Compact List");
 		System.out.println("2. Verbose List");
-		System.out.println("3. Back");
+		System.out.println("0. Back");
+	}
+	
+	public void displayEditMenu() {
+		System.out.println("What would you like to edit?");
+		System.out.println("1. Name");
+		System.out.println("2. Personal Number");
+		System.out.println("0. Back");
+	}
+	public void memberToEdit() {
+		System.out.println("Which member would you like to edit? (Enter ID or '0' to go back)");
 	}
 	
 	public void displayInputError() {

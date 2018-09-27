@@ -36,7 +36,7 @@ public class User {
 		case 1: return createMember();
 		case 2: return listMembers();
 		case 3: return testOption();
-		case 4: return editMember();
+		case 4: return editMemberMain();
 		case 5: return quit();
 		}
 		return true;
@@ -62,9 +62,11 @@ public class User {
 		while(true) {
 			c_view.listMembersMenu();
 			int input = c_view.readInput();
-			int lowest = 1, max = 3;
-			if (inputIsInvalid(input, lowest, max)) {
-				c_view.displayInputError();
+			int lowest = 1, max = 2;
+			if (input == 0) {
+				return true;
+			}
+			else if (inputIsInvalid(input, lowest, max)) {
 				continue;
 			}
 			else {
@@ -77,8 +79,61 @@ public class User {
 		}
 	}
 	
-	public boolean editMember() {
+	
+	// EDIT MEMBER
+	public boolean editMemberMain() {
+		while (true) {
+			c_view.memberToEdit();
+			int input = c_view.readInput();
+			if (input == 0) {
+				return true;
+			}
+			else if (registry.idExist(input)) {
+				if (!makeEditChoice(input)) {					//User has chosen to go back
+					continue;
+				}
+				break;
+			}
+			else {
+				c_view.displayInputError();
+			}
+			
+		}
 		return true;									//NOT STARTED
+	}
+	public boolean makeEditChoice(int memberID) {
+		int lowest = 1, max = 2;
+		while (true) {
+			c_view.displayEditMenu();
+			int input = c_view.readInput();
+			if (input == 0) {
+				return false;
+			}
+			else if (inputIsInvalid(input, lowest, max)) {
+				continue;
+			}
+			else {
+				//get specific member information
+				switch (input) {
+				case 1: return editName(memberID);
+				case 2: return editpNum(memberID);
+				
+				}
+			}
+			break;
+		}
+		
+		return true;
+	}
+	public boolean editName(int id) {
+		String newName = c_view.askForName();
+		registry.editName(newName, id);
+		return true;
+	}
+	public boolean editpNum(int id) {
+		String newpNum = c_view.askForPNum();
+		registry.editpNum(newpNum, id);
+		return true;
 	}
 	
 	public boolean areYouSure() {
@@ -88,7 +143,6 @@ public class User {
 			int input = c_view.readInput();
 			int lowest = 1, max = 2;
 			if (inputIsInvalid(input, lowest, max)) {
-				c_view.displayInputError();
 				continue;
 			}
 			else if (input == yes) {
@@ -103,6 +157,7 @@ public class User {
 	
 	public boolean inputIsInvalid(int input, int lowestValue, int maxValue) {
 		if (input < lowestValue || input > maxValue) {
+			c_view.displayInputError();
 			return true;
 		}
 		else {
