@@ -1,8 +1,12 @@
 package view;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import model.Registry;
+import model.Member;
 
 public class Console {
 
@@ -19,7 +23,8 @@ public class Console {
 		System.out.println("2. List Members");
 		System.out.println("3. Test Option");
 		System.out.println("4. Edit Member Information");
-		System.out.println("5. Quit");
+		System.out.println("5. View Specific Member");
+		System.out.println("6. Quit");
 		
 	}
 	
@@ -35,12 +40,32 @@ public class Console {
 		
 		return -1;
 	}
+	public void pressEnterToContinue() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Press enter to continue..");
+		scan.nextLine();
+	}
 	
 	
 	public String askForName() {
 		System.out.println("Enter name:");
+		
 		Scanner scan = new Scanner(System.in);						//closing scanner creates error
 		String name = scan.nextLine();
+		
+		/*
+		InputStreamReader reader = new InputStreamReader(System.in);
+	    BufferedReader in = new BufferedReader(reader);
+	    String name = "";
+	    boolean validInput = true;
+	    while(validInput)
+	    try {
+	    	name = in.readLine();
+	    	return name;
+	    }
+	    catch (IOException e) {
+	    	//e.printStackTrace();
+	    } */
 		return name;
 	}
 	public String askForPNum() {
@@ -49,9 +74,24 @@ public class Console {
 		String pNum = scan.nextLine();
 		return pNum;
 	}
+	public int askForID() {
+		while(true) {
+			System.out.println("Which member do you want to view? (Enter ID or '0' to go back)");
+			int input = readInput();
+			int badInput = -1;
+			if (input == badInput) {
+				displayInputError();
+				continue;
+			}
+			else {
+				return input;
+			}
+		}
+	}
 	
 	public void displayMembers(Registry registry) {						//Temporary method
 		System.out.println(registry.toString());
+		pressEnterToContinue();
 	}
 	
 	public void listMembersMenu() {
@@ -69,6 +109,13 @@ public class Console {
 	}
 	public void memberToEdit() {
 		System.out.println("Which member would you like to edit? (Enter ID or '0' to go back)");
+	}
+	
+	public void printMemberInfo(Member m) {
+		String name = m.getName(), pNum = m.getpNum();
+		int memberID = m.getMemberID();
+		
+		System.out.println("Name: " + name + "\t\tPNR: " + pNum + "\t\tMember ID: " + memberID + "\n");
 	}
 	
 	public void displayInputError() {

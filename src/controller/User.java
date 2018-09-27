@@ -4,6 +4,7 @@ import view.Console;
 
 import java.io.IOException;
 
+import model.Member;
 import model.Registry;
 
 public class User {
@@ -37,7 +38,8 @@ public class User {
 		case 2: return listMembers();
 		case 3: return testOption();
 		case 4: return editMemberMain();
-		case 5: return quit();
+		case 5: return viewSpecificMember();
+		case 6: return quit();
 		}
 		return true;
 	}
@@ -135,6 +137,26 @@ public class User {
 		registry.editpNum(newpNum, id);
 		return true;
 	}
+	
+	public boolean viewSpecificMember() {
+		while (true) {
+			int input = c_view.askForID();
+			
+			if (registry.idExist(input)) {
+				Member m = registry.findMemberByID(input);
+				c_view.printMemberInfo(m);
+				c_view.pressEnterToContinue();
+				break;
+			}
+			else {
+				c_view.displayInputError();
+			}
+		}
+		
+		
+		return true;
+	}
+	
 	
 	public boolean areYouSure() {
 		int yes = 1;
