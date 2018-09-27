@@ -88,6 +88,16 @@ public class Registry {
 			
 		}
 	}
+	public Member findMemberByID(int inputID) {						//Reuse for editpNum & editName & maybe idExist
+		for (int i= 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				Member m = memberList.get(i);
+				return m;
+			}
+		}
+		return null;
+	}
 	/*
 	public static void main (String[] args) throws IOException {
 		Registry registry = new Registry();
