@@ -28,7 +28,7 @@ public class Registry {
 	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
 		String listStr = "";
 		for (int i = 0; i < memberList.size(); i++) {
-			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + "\n";
+			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + " ID: " + memberList.get(i).getMemberID() + "\n";
 		}
 		//return memberList.get(0).getName() + " " + memberList.get(0).getpNum();
 		return listStr;
@@ -43,5 +43,61 @@ public class Registry {
 		memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
 		Member.setNextID(memberList.get(memberList.size()-1).getMemberID());
 	}
-	
+
+	public boolean idExist(int inputID) {
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID)
+				return true;
+		}
+		return false;
+	}
+	public void editName(String newName, int inputID) {
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				Member edited = memberList.get(i);
+				edited.setName(newName);
+				memberList.set(i, edited);
+				break;
+			}
+		}
+		
+		try {
+			writeToMemberList();
+		}
+		catch (Exception e) {
+			
+		}
+	}
+	public void editpNum(String newpNum, int inputID) {
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				Member edited = memberList.get(i);
+				edited.setpNum(newpNum);
+				memberList.set(i, edited);
+				break;
+			}
+		}
+		
+		try {
+			writeToMemberList();
+		}
+		catch (Exception e) {
+			
+		}
+	}
+	/*
+	public static void main (String[] args) throws IOException {
+		Registry registry = new Registry();
+		//registry.createMember("Erik, ", "007");
+		//registry.createMember("Timme, ", "666");
+		//registry.writeToMemberList();
+		
+		registry.readFromMemberList();
+		System.out.println(registry.toString());
+
+		
+	} */
 }
