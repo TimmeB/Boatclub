@@ -44,6 +44,7 @@ public class User {
 		return true;
 	}
 	
+	
 	public boolean createMember() {
 		String name = c_view.askForName();
 		String pNum = c_view.askForPNum();								//Replace with method similar to askForName in Console
@@ -54,11 +55,8 @@ public class User {
 			System.out.println(e);
 		}
 		return true;
-	}
-	public boolean deleteMember() {
-		
-		return true;
-	}
+	}	
+	
 	
 	public boolean listMembers() {
 		while(true) {
@@ -78,6 +76,28 @@ public class User {
 				case 3: return true;
 				}
 			}		
+		}
+	}
+	
+	
+	public boolean deleteMember() {
+		while (true) {
+			c_view.memberToDelete();
+			int input = c_view.readInput();
+			if (input == 0) {
+				return true;
+			}
+			else if (registry.idExist(input)) {
+				if (areYouSure()) {					//User has chosen to go back
+					registry.deleteMember(input);
+					return true;
+				}
+				continue;
+			}
+			else {
+				c_view.displayInputError();
+			}
+			
 		}
 	}
 	

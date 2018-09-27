@@ -41,7 +41,8 @@ public class Registry {
 	
 	public void readFromMemberList () throws IOException {
 		memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
-		Member.setNextID(memberList.get(memberList.size()-1).getMemberID());
+		if (!memberList.isEmpty())
+			Member.setNextID(memberList.get(memberList.size()-1).getMemberID());
 	}
 
 	public boolean idExist(int inputID) {
@@ -52,6 +53,24 @@ public class Registry {
 		}
 		return false;
 	}
+	
+	public void deleteMember(int inputID) {
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				memberList.remove(i);
+				break;
+			}
+		}
+		try {
+			writeToMemberList();
+		}
+		catch (Exception e) {
+			
+		}
+		
+	}
+	
 	public void editName(String newName, int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
@@ -88,6 +107,7 @@ public class Registry {
 			
 		}
 	}
+
 	public Member findMemberByID(int inputID) {						//Reuse for editpNum & editName & maybe idExist
 		for (int i= 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
@@ -98,16 +118,5 @@ public class Registry {
 		}
 		return null;
 	}
-	/*
-	public static void main (String[] args) throws IOException {
-		Registry registry = new Registry();
-		//registry.createMember("Erik, ", "007");
-		//registry.createMember("Timme, ", "666");
-		//registry.writeToMemberList();
-		
-		registry.readFromMemberList();
-		System.out.println(registry.toString());
 
-		
-	} */
 }
