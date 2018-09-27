@@ -67,6 +67,11 @@ public class Console {
 		System.out.println("2. Personal Number");
 		System.out.println("0. Back");
 	}
+	
+	public void memberToDelete() {
+		System.out.println("Which member would you like to delete? (Enter ID or '0' to go back)");
+	}
+	
 	public void memberToEdit() {
 		System.out.println("Which member would you like to edit? (Enter ID or '0' to go back)");
 	}
