@@ -35,7 +35,7 @@ public class User {
 		switch (input) {
 		case 1: return createMember();
 		case 2: return listMembers();
-		case 3: return testOption();
+		case 3: return deleteMember();
 		case 4: return editMember();
 		case 5: return quit();
 		}
@@ -53,8 +53,8 @@ public class User {
 		}
 		return true;
 	}
-	public boolean testOption() {
-		System.out.println("Bitch-ass Johnson");
+	public boolean deleteMember() {
+		
 		return true;
 	}
 	
@@ -80,6 +80,8 @@ public class User {
 	public boolean editMember() {
 		return true;									//NOT STARTED
 	}
+	
+	
 	
 	public boolean areYouSure() {
 		int yes = 1;

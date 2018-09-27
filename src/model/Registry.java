@@ -13,6 +13,7 @@ public class Registry {
 	private ArrayList<Member> memberList;
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
+	
 	public Registry() {
 		memberList = new ArrayList<>();
 	}
@@ -40,17 +41,7 @@ public class Registry {
 	
 	public void readFromMemberList () throws IOException {
 		memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
+		Member.setNextID(memberList.get(memberList.size()-1).getMemberID());
 	}
-	/*
-	public static void main (String[] args) throws IOException {
-		Registry registry = new Registry();
-		//registry.createMember("Erik, ", "007");
-		//registry.createMember("Timme, ", "666");
-		//registry.writeToMemberList();
-		
-		registry.readFromMemberList();
-		System.out.println(registry.toString());
-
-		
-	} */
+	
 }

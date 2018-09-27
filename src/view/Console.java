@@ -17,7 +17,7 @@ public class Console {
 		System.out.println("What would you like to do? (Enter number)");
 		System.out.println("1. Add Member");
 		System.out.println("2. List Members");
-		System.out.println("3. Test Option");
+		System.out.println("3. Delete Member");
 		System.out.println("4. Edit Member Information");
 		System.out.println("5. Quit");
 		
