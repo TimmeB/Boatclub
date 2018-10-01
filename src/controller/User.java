@@ -39,7 +39,8 @@ public class User {
 		case 3: return deleteMember();
 		case 4: return editMemberMain();
 		case 5: return viewSpecificMember();
-		case 6: return quit();
+		case 6: return registerBoat();
+		case 7: return quit();
 		}
 		return true;
 	}
@@ -175,6 +176,10 @@ public class User {
 		}
 		
 		
+		return true;
+	}
+	
+	public boolean registerBoat() {
 		return true;
 	}
 	

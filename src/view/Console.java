@@ -24,7 +24,8 @@ public class Console {
 		System.out.println("3. Delete Member");
 		System.out.println("4. Edit Member Information");
 		System.out.println("5. View Specific Member");
-		System.out.println("6. Quit");
+		System.out.println("6. Register Boat");
+		System.out.println("7. Quit");
 		
 	}
 	

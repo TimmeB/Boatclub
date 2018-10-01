@@ -1,9 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Member {
 	private String name, pNum;
 	private int memberID;
 	private static int nextID = 0;
+	private ArrayList<Boat> boatList;
 	
 	public Member() {								//Contructor without arguments is used by ObjectMapper
 
@@ -13,7 +16,8 @@ public class Member {
 		nextID++;
 		name = n;
 		pNum = pn;
-		memberID = nextID;		
+		memberID = nextID;	
+		boatList = new ArrayList<>();
 		
 	}
 	

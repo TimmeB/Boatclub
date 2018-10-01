@@ -9,4 +9,6 @@ public class Boat {
 		this.length = length;
 	}
 	
+	
+	
 }
