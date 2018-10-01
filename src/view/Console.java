@@ -90,9 +90,17 @@ public class Console {
 		}
 	}
 	
-	public void displayMembers(Registry registry) {						//Temporary method
-		System.out.println(registry.toString());
+	public boolean displayCompactList(Registry registry) {						//Temporary method
+		System.out.println("\n---------- COMPACT LIST ----------\n");
+		System.out.println(registry.toCompactListString());
 		pressEnterToContinue();
+		return true;
+	}
+	public boolean displayVerboseList(Registry registry) {
+		System.out.println("\n---------- VERBOSE LIST ----------\n");
+		System.out.println(registry.toVerboseListString());
+		pressEnterToContinue();
+		return true;
 	}
 	
 	public void listMembersMenu() {

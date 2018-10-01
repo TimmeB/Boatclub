@@ -25,12 +25,22 @@ public class Registry {
 	}
 	
 
-	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
+	public String toCompactListString() {		// denna metod kommer ersätttas av hämtmedtod från fil
 		String listStr = "";
 		for (int i = 0; i < memberList.size(); i++) {
-			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + " ID: " + memberList.get(i).getMemberID() + "\n";
+			listStr += "Name: " + memberList.get(i).getName() + "\t\t\tID: " + memberList.get(i).getMemberID() + "\t\t\tNumber of Boats: " 
+					+ memberList.get(i).getBoatListSize() + "\n" + "-------------------------------------------------------------------------------\n";
 		}
-		//return memberList.get(0).getName() + " " + memberList.get(0).getpNum();
+		return listStr;
+	}
+	public String toVerboseListString() {
+		String listStr = "";
+		for (int i = 0; i < memberList.size(); i++) {
+			listStr += "Name: " + memberList.get(i).getName() + "\t\t\tID: " + memberList.get(i).getMemberID() + "\t\t\tPNR: " + memberList.get(i).getpNum()
+					+ "\n\nBoats: \n"
+					+ "" //use boatList.toString for print here
+					+ "\n" + "-------------------------------------------------------------------------------\n";
+		}
 		return listStr;
 	}
 	 

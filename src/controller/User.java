@@ -72,9 +72,8 @@ public class User {
 			}
 			else {
 				switch (input) {
-				case 1: c_view.displayMembers(registry);					//Create method for compact list
-				case 2: return true;//c_view.displayMembers(registry);					//Create method for verbose list
-				case 3: return true;
+				case 1: return c_view.displayCompactList(registry);					
+				case 2: return c_view.displayVerboseList(registry);					
 				}
 			}		
 		}

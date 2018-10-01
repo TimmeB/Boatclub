@@ -34,6 +34,14 @@ public class Member {
 	public int getMemberID() {
 		return memberID;
 	}
+	public int getBoatListSize() {
+		if (boatList == null) {
+			return 0;
+		}
+		else {
+			return boatList.size();
+		}	
+	}
 	public void setName(String newName) {
 		name = newName;
 	}
