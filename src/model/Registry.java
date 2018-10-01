@@ -12,7 +12,7 @@ public class Registry {
 	
 	private ArrayList<Member> memberList;
 	private ObjectMapper objectMapper = new ObjectMapper();
-	
+	private Member member;
 	
 	public Registry() {
 		memberList = new ArrayList<>();
@@ -119,4 +119,12 @@ public class Registry {
 		return null;
 	}
 
+	
+	// Register boat chapter
+	public void addBoat(String type, int size) {
+		Boat newBoat = new Boat(type, size);
+		//member.addBoat(newBoat);
+		
+	}
+	
 }

@@ -41,6 +41,10 @@ public class Member {
 		pNum = newpNum;
 	}
 	
+	public void addBoat(Boat newBoat) {		 
+		//boatList.add(newBoat);
+	}
+	
 	
 	
 }
