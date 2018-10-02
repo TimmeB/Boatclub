@@ -179,7 +179,28 @@ public class User {
 	}
 	
 	public boolean registerBoat() {
-		return true;
+		while (true) {
+			c_view.memberToAddBoat();
+			int input = c_view.readInput();
+			if (input == 0) {
+				return true;
+			}
+			else if (registry.idExist(input)) {
+				if (areYouSure()) {					//User has chosen to go back
+					String type = c_view.askForBoatType();
+					int size = c_view.askForBoatSize();
+					registry.addBoat(type, size, input);
+					return true;
+				}
+				continue;
+			}
+			else {
+				c_view.displayInputError();
+			}
+			
+		}
+		
+		//return true;
 	}
 	
 	

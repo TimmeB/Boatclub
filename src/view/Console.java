@@ -125,6 +125,25 @@ public class Console {
 		System.out.println("Which member would you like to edit? (Enter ID or '0' to go back)");
 	}
 	
+	public void memberToAddBoat() {
+		System.out.println("To which member should the boat be added? (Enter ID or '0' to go back)");
+	}
+	
+	public String askForBoatType() {				// bör hantera type?
+		System.out.println("Enter boattype: ");
+		Scanner sc = new Scanner(System.in);
+		String type = sc.nextLine();
+		return type;
+	}
+	
+	public int askForBoatSize() {
+		System.out.println("Enter boatsize: ");
+		Scanner sc = new Scanner(System.in);
+		int size = sc.nextInt();
+		return size;
+	}
+	
+	
 	public void printMemberInfo(Member m) {
 		String name = m.getName(), pNum = m.getpNum();
 		int memberID = m.getMemberID();

@@ -12,7 +12,7 @@ public class Registry {
 	
 	private ArrayList<Member> memberList;
 	private ObjectMapper objectMapper = new ObjectMapper();
-	
+	private Member member;
 	
 	public Registry() {
 		memberList = new ArrayList<>();
@@ -40,6 +40,10 @@ public class Registry {
 					+ "\n\nBoats: \n"
 					+ "" //use boatList.toString for print here
 					+ "\n" + "-------------------------------------------------------------------------------\n";
+			/*
+			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + " ID: " + memberList.get(i).getMemberID() + "\n"
+					+ "\nBoats:\n" + memberList.get(i).boatToString(); */
+
 		}
 		return listStr;
 	}
@@ -129,4 +133,25 @@ public class Registry {
 		return null;
 	}
 
+	
+	// Register boat chapter
+	public void addBoat(String type, int size, int inputID) {
+		Boat newBoat = new Boat(type, size);
+		
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				Member m = memberList.get(i);
+				m.addBoat(newBoat);
+				memberList.set(i, m);
+			}
+		}
+		try {
+		writeToMemberList();
+		}
+		catch (Exception e) {
+
+		}
+	}
+	
 }
