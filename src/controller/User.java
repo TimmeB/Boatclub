@@ -11,8 +11,8 @@ public class User {
 
 	private Console c_view;
 	private Registry registry;
-	
-	
+
+
 	public boolean startProgram(Console console, Registry registry) {
 		c_view = console;
 		this.registry = registry;
@@ -23,16 +23,16 @@ public class User {
 			System.out.println(e);
 		}
 		c_view.displayWelcomeMessage();
-		
+
 		c_view.displayMenu();
-		
+
 		return readInput();
 	}
-	
-	
+
+
 	public boolean readInput() {
 		int input = c_view.readInput();
-		
+
 		switch (input) {
 		case 1: return createMember();
 		case 2: return listMembers();
@@ -40,27 +40,27 @@ public class User {
 		case 4: return editMemberMain();
 		case 5: return viewSpecificMember();
 		case 6: return registerBoat();
-		case 7: return true;
+		case 7: return deleteBoat();
 		case 8: return editBoat();
 		case 9: return quit();
 		}
 		return true;
 	}
-	
-	
+
+
 	public boolean createMember() {
 		String name = c_view.askForName();
 		String pNum = c_view.askForPNum();								//Replace with method similar to askForName in Console
 		try {
-		registry.createMember(name, pNum);
+			registry.createMember(name, pNum);
 		}
 		catch (Exception e) {
 			System.out.println(e);
 		}
 		return true;
 	}	
-	
-	
+
+
 	public boolean listMembers() {
 		while(true) {
 			c_view.listMembersMenu();
@@ -80,8 +80,8 @@ public class User {
 			}		
 		}
 	}
-	
-	
+
+
 	public boolean deleteMember() {
 		while (true) {
 			c_view.memberToDelete();
@@ -99,11 +99,11 @@ public class User {
 			else {
 				c_view.displayInputError();
 			}
-			
+
 		}
 	}
-	
-	
+
+
 	// EDIT MEMBER
 	public boolean editMemberMain() {
 		while (true) {
@@ -121,7 +121,7 @@ public class User {
 			else {
 				c_view.displayInputError();
 			}
-			
+
 		}
 		return true;									//NOT STARTED
 	}
@@ -141,12 +141,12 @@ public class User {
 				switch (input) {
 				case 1: return editName(memberID);
 				case 2: return editpNum(memberID);
-				
+
 				}
 			}
 			break;
 		}
-		
+
 		return true;
 	}
 	public boolean editName(int id) {
@@ -159,12 +159,12 @@ public class User {
 		registry.editpNum(newpNum, id);
 		return true;
 	}
-	
+
 
 	public boolean viewSpecificMember() {
 		while (true) {
 			int input = c_view.askForID();
-			
+
 			if (input == 0) {
 				return true;
 			}
@@ -178,11 +178,11 @@ public class User {
 				c_view.displayInputError();
 			}
 		}
-		
-		
+
+
 		return true;
 	}
-	
+
 	public boolean registerBoat() {
 		while (true) {
 			c_view.memberToAddBoat();
@@ -203,10 +203,10 @@ public class User {
 			}
 		}
 	}
-			
-			
-		
-	
+
+
+
+
 	public String chooseBoatType() {
 		int min = 1, max = 4;
 		while (true) {
@@ -225,7 +225,7 @@ public class User {
 			}
 		}
 	}
-	
+
 	public boolean editBoat() {
 		while (true) {
 			c_view.membersBoatToEdit();
@@ -240,7 +240,7 @@ public class User {
 					if (wantsToGoBack(boatToEdit)) {
 						continue;
 					}
-					
+
 					//Choose what to edit
 					while (true) {
 						int min = 1, max = 2;
@@ -269,7 +269,7 @@ public class User {
 			}
 		}
 	}
-	
+
 	public int boatToEdit(int memberID) {
 		c_view.boatToEdit();
 		String list = registry.boatsToString(memberID);
@@ -284,19 +284,56 @@ public class User {
 			else if (inputIsInvalid(input, min, max)) {
 				continue;
 			}
-			
+
 			return input;
 		}
 	}
-	
-		
-			
-		
-		
+
+	public boolean deleteBoat() {
+		while (true) {
+			c_view.membersBoatToDelete();
+			int inputID = c_view.readInput();
+			if (wantsToGoBack(inputID)) {
+				return true;
+			}
+			else if (registry.idExist(inputID)) {
+				if (areYouSure()) {	
+					//Choose which boat to delete
+					int boatToDelete = boatToDelete(inputID);
+					if (wantsToGoBack(boatToDelete)) {
+						continue;
+					}
+					else registry.deleteBoat(inputID, boatToDelete);
+					return true;
+				}
+			}
+		}
+	}
+
+	public int boatToDelete(int memberID) {
+		c_view.boatToDelete();
+		String list = registry.boatsToString(memberID);
+		Member m = registry.findMemberByID(memberID);
+		int min = 1, max = m.boatListSize();
+		while (true) {
+			c_view.printString(list);
+			int input = c_view.readInput();
+			if (wantsToGoBack(input)) {
+				return 0;
+			}
+			else if (inputIsInvalid(input, min, max)) {
+				continue;
+			}
+
+			return input;
+		}
+	}		
+
+
 	public boolean wantsToGoBack(int input) {
 		return input == 0;
 	}
-	
+
 	public boolean areYouSure() {
 		int yes = 1;
 		while (true) {
@@ -313,9 +350,9 @@ public class User {
 				return false;
 			}
 		}
-		
+
 	} 
-	
+
 	public boolean inputIsInvalid(int input, int lowestValue, int maxValue) {
 		if (input < lowestValue || input > maxValue) {
 			c_view.displayInputError();
@@ -338,6 +375,6 @@ public class User {
 		}
 		return true;							//Returning true keeps program running
 	}
-	
+
 
 }
