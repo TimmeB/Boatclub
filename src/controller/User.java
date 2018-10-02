@@ -306,7 +306,7 @@ public class User {
 	}
 		
 			
-	//OTHER	
+	//DELETE BOAT	
 
 	public boolean deleteBoat() {
 		while (true) {
