@@ -9,21 +9,21 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Registry {
-	
+
 	private ArrayList<Member> memberList;
 	private ObjectMapper objectMapper = new ObjectMapper();
 	private Member member;
-	
+
 	public Registry() {
 		memberList = new ArrayList<>();
 	}
-	
+
 	public void createMember(String name, String pNum) throws JsonGenerationException, IOException {
 		Member member = new Member(name, pNum);
 		memberList.add(member);
 		writeToMemberList();
 	}
-	
+
 
 	public String toCompactListString() {
 		String listStr = "";
@@ -44,12 +44,12 @@ public class Registry {
 		}
 		return listStr;
 	}
-	 
-	
+
+
 	public void writeToMemberList() throws JsonGenerationException, IOException {
 		objectMapper.writeValue(new File("Memberlist.txt"), memberList);
 	}
-	
+
 	public void readFromMemberList () throws IOException {
 		memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
 		if (!memberList.isEmpty())
@@ -64,7 +64,7 @@ public class Registry {
 		}
 		return false;
 	}
-	
+
 	public void deleteMember(int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
@@ -77,11 +77,11 @@ public class Registry {
 			writeToMemberList();
 		}
 		catch (Exception e) {
-			
+
 		}
-		
+
 	}
-	
+
 	public void editName(String newName, int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
@@ -92,12 +92,12 @@ public class Registry {
 				break;
 			}
 		}
-		
+
 		try {
 			writeToMemberList();
 		}
 		catch (Exception e) {
-			
+
 		}
 	}
 	public void editpNum(String newpNum, int inputID) {
@@ -110,12 +110,12 @@ public class Registry {
 				break;
 			}
 		}
-		
+
 		try {
 			writeToMemberList();
 		}
 		catch (Exception e) {
-			
+
 		}
 	}
 
@@ -130,11 +130,11 @@ public class Registry {
 		return null;
 	}
 
-	
+
 	// Register boat chapter
 	public void addBoat(String type, int size, int inputID) {
 		Boat newBoat = new Boat(type, size);
-		
+
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
 			if (inputID == membersID) {
@@ -144,18 +144,18 @@ public class Registry {
 			}
 		}
 		try {
-		writeToMemberList();
+			writeToMemberList();
 		}
 		catch (Exception e) {
 
 		}
 	}
-	
+
 	public String boatsToString(int inputID) {
 		Member m = findMemberByID(inputID);
 		return m.boatToString();
 	}
-	
+
 	public void editBoatType(int boatToEdit, String newType, int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
@@ -166,15 +166,15 @@ public class Registry {
 				break;
 			}
 		}
-		
+
 		try {
 			writeToMemberList();
 		}
 		catch (Exception e) {
-			
+
 		}
 	}
-	
+
 	public void editBoatSize(int boatToEdit, int newLength, int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
@@ -185,13 +185,30 @@ public class Registry {
 				break;
 			}
 		}
-		
+
 		try {
 			writeToMemberList();
 		}
 		catch (Exception e) {
-			
+
 		}
 	}
-	
+
+	public void deleteBoat(int memberInputID, int boatToDelete) {
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (memberInputID == membersID) {
+				Member edited = memberList.get(i);
+				ArrayList<Boat> boats = edited.getBoatList();
+				boats.remove(boatToDelete-1);
+			}
+		}
+		try {
+			writeToMemberList();
+		}
+		catch (Exception e) {
+
+		}
+	}
+
 }

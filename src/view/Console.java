@@ -138,11 +138,19 @@ public class Console {
 		System.out.println("Which boat would you like to edit? ('0' to go back)");
 	}
 	
+	public void boatToDelete() {
+		System.out.println("Which boat would you like to Delete? ('0' to go back)");
+	}
+	
 	public void memberToAddBoat() {
 		System.out.println("To which member should the boat be added? (Enter ID or '0' to go back)");
 	}
 	public void membersBoatToEdit() {
 		System.out.println("Which members boat would you like to edit? (Enter ID or '0' to go back)");
+	}
+	
+	public void membersBoatToDelete() {
+		System.out.println("Which members boat would you like to delete? (Enter ID or '0' to go back)");
 	}
 	
 	public void printString(String s) {
