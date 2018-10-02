@@ -1,11 +1,12 @@
 package controller;
 
 import view.Console;
+import model.Member;
+import model.Registry;
 
 import java.io.IOException;
 
-import model.Member;
-import model.Registry;
+
 
 public class User {
 
@@ -48,9 +49,11 @@ public class User {
 	}
 	
 	
+	//ADD MEMBERS
+	
 	public boolean createMember() {
 		String name = c_view.askForName();
-		String pNum = c_view.askForPNum();								//Replace with method similar to askForName in Console
+		String pNum = c_view.askForPNum();								
 		try {
 		registry.createMember(name, pNum);
 		}
@@ -61,12 +64,14 @@ public class User {
 	}	
 	
 	
+	//LIST MEMBERS
+	
 	public boolean listMembers() {
 		while(true) {
 			c_view.listMembersMenu();
 			int input = c_view.readInput();
 			int lowest = 1, max = 2;
-			if (input == 0) {
+			if (wantsToGoBack(input)) {
 				return true;
 			}
 			else if (inputIsInvalid(input, lowest, max)) {
@@ -82,11 +87,13 @@ public class User {
 	}
 	
 	
+	//DELETE MEMBER
+	
 	public boolean deleteMember() {
 		while (true) {
 			c_view.memberToDelete();
 			int input = c_view.readInput();
-			if (input == 0) {
+			if (wantsToGoBack(input)) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
@@ -109,12 +116,12 @@ public class User {
 		while (true) {
 			c_view.memberToEdit();
 			int input = c_view.readInput();
-			if (input == 0) {
+			if (wantsToGoBack(input)) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
-				if (!makeEditChoice(input)) {					//User has chosen to go back
-					continue;
+				if (!makeEditChoice(input)) {					//This will be set as false if user chooses to go back
+					continue;									//.. from makeEditChoice
 				}
 				break;
 			}
@@ -123,21 +130,20 @@ public class User {
 			}
 			
 		}
-		return true;									//NOT STARTED
+		return true;									
 	}
 	public boolean makeEditChoice(int memberID) {
 		int lowest = 1, max = 2;
 		while (true) {
 			c_view.displayEditMenu();
 			int input = c_view.readInput();
-			if (input == 0) {
+			if (wantsToGoBack(input)) {
 				return false;
 			}
 			else if (inputIsInvalid(input, lowest, max)) {
 				continue;
 			}
 			else {
-				//get specific member information
 				switch (input) {
 				case 1: return editName(memberID);
 				case 2: return editpNum(memberID);
@@ -161,11 +167,13 @@ public class User {
 	}
 	
 
+	//VIEW MEMBER
+	
 	public boolean viewSpecificMember() {
 		while (true) {
 			int input = c_view.askForID();
 			
-			if (input == 0) {
+			if (wantsToGoBack(input)) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
@@ -183,11 +191,14 @@ public class User {
 		return true;
 	}
 	
+	
+	//ADD BOAT
+	
 	public boolean registerBoat() {
 		while (true) {
 			c_view.memberToAddBoat();
 			int input = c_view.readInput();
-			if (input == 0) {
+			if (wantsToGoBack(input)) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
@@ -226,8 +237,12 @@ public class User {
 		}
 	}
 	
+	
+	//EDIT BOAT
+	
 	public boolean editBoat() {
 		while (true) {
+			//Choose which member
 			c_view.membersBoatToEdit();
 			int inputID = c_view.readInput();
 			if (wantsToGoBack(inputID)) {
@@ -291,7 +306,7 @@ public class User {
 	
 		
 			
-		
+	//OTHER	
 		
 	public boolean wantsToGoBack(int input) {
 		return input == 0;
