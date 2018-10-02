@@ -25,7 +25,9 @@ public class Console {
 		System.out.println("4. Edit Member Information");
 		System.out.println("5. View Specific Member");
 		System.out.println("6. Register Boat");
-		System.out.println("7. Quit");
+		System.out.println("7. Delete Boat");
+		System.out.println("8. Edit Boat Information");
+		System.out.println("9. Quit");
 		
 	}
 	
@@ -90,7 +92,7 @@ public class Console {
 		}
 	}
 	
-	public boolean displayCompactList(Registry registry) {						//Temporary method
+	public boolean displayCompactList(Registry registry) {						
 		System.out.println("\n---------- COMPACT LIST ----------\n");
 		System.out.println(registry.toCompactListString());
 		pressEnterToContinue();
@@ -117,6 +119,13 @@ public class Console {
 		System.out.println("0. Back");
 	}
 	
+	public void displayBoatEditMenu() {
+		System.out.println("What would you like to edit?");
+		System.out.println("1. Type");
+		System.out.println("2. Size");
+		System.out.println("0. Back");
+	}
+	
 	public void memberToDelete() {
 		System.out.println("Which member would you like to delete? (Enter ID or '0' to go back)");
 	}
@@ -125,15 +134,26 @@ public class Console {
 		System.out.println("Which member would you like to edit? (Enter ID or '0' to go back)");
 	}
 	
+	public void boatToEdit() {
+		System.out.println("Which boat would you like to edit? ('0' to go back)");
+	}
+	
 	public void memberToAddBoat() {
 		System.out.println("To which member should the boat be added? (Enter ID or '0' to go back)");
 	}
+	public void membersBoatToEdit() {
+		System.out.println("Which members boat would you like to edit? (Enter ID or '0' to go back)");
+	}
 	
-	public String askForBoatType() {				// bör hantera type?
-		System.out.println("Enter boattype: ");
-		Scanner sc = new Scanner(System.in);
-		String type = sc.nextLine();
-		return type;
+	public void printString(String s) {
+		System.out.println(s);
+	}
+	public void askForBoatType() {				
+		System.out.println("What type of boat would you like to register?");
+		System.out.println("1. Sailboat");
+		System.out.println("2. Motorsailer");
+		System.out.println("3. Kayak/Canoe");
+		System.out.println("4. Other");
 	}
 	
 	public int askForBoatSize() {
@@ -145,10 +165,14 @@ public class Console {
 	
 	
 	public void printMemberInfo(Member m) {
-		String name = m.getName(), pNum = m.getpNum();
+		String name = m.getName(), pNum = m.getpNum(), verboseInfo = "\n";
 		int memberID = m.getMemberID();
 		
-		System.out.println("Name: " + name + "\t\tPNR: " + pNum + "\t\tMember ID: " + memberID + "\n");
+		verboseInfo += "Name: " + name + "\t\t\tID: " + memberID + "\t\t\tPNR: " + pNum
+				+ "\n\nBoats: \n"
+				+ m.boatToString() 
+				+ "\n" + "-------------------------------------------------------------------------------\n";
+		System.out.println(verboseInfo);
 	}
 	
 	public void displayInputError() {

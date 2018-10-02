@@ -36,22 +36,33 @@ public class Member {
 		return memberID;
 	}
 
-	public int getBoatListSize() {				//use try
+	public int boatListSize() {				//use try
+		try {
+			return boatList.size();
+		}
+		catch (Exception e) {
+			return 0;
+		}
+		/*
 		if (boatList == null) {
 			return 0;
 		}
 		else {
 			return boatList.size();
-		}	
+		}	*/
 	}
 	public ArrayList<Boat> getBoatList() {
 		return boatList;
 	}
 	public String boatToString() {
+		if (boatList.size() == 0)
+			return "No boats currently registered"; 
 		try {
 			String boatListStr = "";
+			int count = 1;
 			for (Boat b : boatList) {
-				boatListStr += b.toString() + "\n";
+				boatListStr += count + ". " + b.toString() + "\n";
+				count++;
 			}
 			return boatListStr;
 			//return boatList.get(0).toString();

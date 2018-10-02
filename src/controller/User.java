@@ -40,7 +40,9 @@ public class User {
 		case 4: return editMemberMain();
 		case 5: return viewSpecificMember();
 		case 6: return registerBoat();
-		case 7: return quit();
+		case 7: return true;
+		case 8: return editBoat();
+		case 9: return quit();
 		}
 		return true;
 	}
@@ -163,7 +165,10 @@ public class User {
 		while (true) {
 			int input = c_view.askForID();
 			
-			if (registry.idExist(input)) {
+			if (input == 0) {
+				return true;
+			}
+			else if (registry.idExist(input)) {
 				Member m = registry.findMemberByID(input);
 				c_view.printMemberInfo(m);
 				c_view.pressEnterToContinue();
@@ -187,22 +192,110 @@ public class User {
 			}
 			else if (registry.idExist(input)) {
 				if (areYouSure()) {					//User has chosen to go back
-					String type = c_view.askForBoatType();
+					String type = chooseBoatType();
 					int size = c_view.askForBoatSize();
 					registry.addBoat(type, size, input);
 					return true;
 				}
-				continue;
 			}
 			else {
 				c_view.displayInputError();
 			}
-			
 		}
+	}
+			
+			
 		
-		//return true;
+	
+	public String chooseBoatType() {
+		int min = 1, max = 4;
+		while (true) {
+			c_view.askForBoatType();
+			int typeInput = c_view.readInput();
+			if (inputIsInvalid(typeInput, min, max)) {
+				continue;
+			}
+			else {
+				switch (typeInput) {
+				case 1: return "Sailboat";
+				case 2: return "Motorsailer";
+				case 3: return "Kayak/Canoe";
+				case 4: return "Other";
+				}
+			}
+		}
 	}
 	
+	public boolean editBoat() {
+		while (true) {
+			c_view.membersBoatToEdit();
+			int inputID = c_view.readInput();
+			if (wantsToGoBack(inputID)) {
+				return true;
+			}
+			else if (registry.idExist(inputID)) {
+				if (areYouSure()) {	
+					//Choose which boat to edit
+					int boatToEdit = boatToEdit(inputID);
+					if (wantsToGoBack(boatToEdit)) {
+						continue;
+					}
+					
+					//Choose what to edit
+					while (true) {
+						int min = 1, max = 2;
+						c_view.displayBoatEditMenu();
+						int inputChoice = c_view.readInput();
+						if (wantsToGoBack(inputChoice)) {
+							return true;
+						}
+						else if (inputIsInvalid(inputChoice, min, max)) {
+							continue;
+						}
+						else if (inputChoice == 1) {									//1 = edit type
+							String type = chooseBoatType();
+							registry.editBoatType(boatToEdit, type, inputID);
+						}
+						else if (inputChoice == 2) {									//2 = edit size
+							int size = c_view.askForBoatSize();
+							registry.editBoatSize(boatToEdit, size, inputID);
+						}
+						return true;
+					}
+				}
+			}
+			else {
+				continue;
+			}
+		}
+	}
+	
+	public int boatToEdit(int memberID) {
+		c_view.boatToEdit();
+		String list = registry.boatsToString(memberID);
+		Member m = registry.findMemberByID(memberID);
+		int min = 1, max = m.boatListSize();
+		while (true) {
+			c_view.printString(list);
+			int input = c_view.readInput();
+			if (wantsToGoBack(input)) {
+				return 0;
+			}
+			else if (inputIsInvalid(input, min, max)) {
+				continue;
+			}
+			
+			return input;
+		}
+	}
+	
+		
+			
+		
+		
+	public boolean wantsToGoBack(int input) {
+		return input == 0;
+	}
 	
 	public boolean areYouSure() {
 		int yes = 1;

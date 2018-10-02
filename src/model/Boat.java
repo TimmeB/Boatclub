@@ -22,7 +22,7 @@ public class Boat {
 	}
 	
 	public String toString() {
-		return "Type: " + type + " Length: " + length;
+		return "Type: " + type + "\t\t\tLength: " + length;
 	}
 	
 	public String getType() {					

@@ -25,25 +25,22 @@ public class Registry {
 	}
 	
 
-	public String toCompactListString() {		// denna metod kommer ersätttas av hämtmedtod från fil
+	public String toCompactListString() {
 		String listStr = "";
 		for (int i = 0; i < memberList.size(); i++) {
 			listStr += "Name: " + memberList.get(i).getName() + "\t\t\tID: " + memberList.get(i).getMemberID() + "\t\t\tNumber of Boats: " 
-					+ memberList.get(i).getBoatListSize() + "\n" + "-------------------------------------------------------------------------------\n";
+					+ memberList.get(i).boatListSize() + "\n" + "-------------------------------------------------------------------------------\n";
 		}
 		return listStr;
 	}
 	public String toVerboseListString() {
 		String listStr = "";
 		for (int i = 0; i < memberList.size(); i++) {
-			listStr += "Name: " + memberList.get(i).getName() + "\t\t\tID: " + memberList.get(i).getMemberID() + "\t\t\tPNR: " + memberList.get(i).getpNum()
+			listStr += "-------------------------------------------------------------------------------\n"
+					+ "Name: " + memberList.get(i).getName() + "\t\t\tID: " + memberList.get(i).getMemberID() + "\t\t\tPNR: " + memberList.get(i).getpNum()
 					+ "\n\nBoats: \n"
-					+ "" //use boatList.toString for print here
+					+ memberList.get(i).boatToString() 
 					+ "\n" + "-------------------------------------------------------------------------------\n";
-			/*
-			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + " ID: " + memberList.get(i).getMemberID() + "\n"
-					+ "\nBoats:\n" + memberList.get(i).boatToString(); */
-
 		}
 		return listStr;
 	}
@@ -151,6 +148,49 @@ public class Registry {
 		}
 		catch (Exception e) {
 
+		}
+	}
+	
+	public String boatsToString(int inputID) {
+		Member m = findMemberByID(inputID);
+		return m.boatToString();
+	}
+	
+	public void editBoatType(int boatToEdit, String newType, int inputID) {
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				Member edited = memberList.get(i);
+				ArrayList<Boat> boats = edited.getBoatList();
+				boats.get(boatToEdit - 1).setType(newType);
+				break;
+			}
+		}
+		
+		try {
+			writeToMemberList();
+		}
+		catch (Exception e) {
+			
+		}
+	}
+	
+	public void editBoatSize(int boatToEdit, int newLength, int inputID) {
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				Member edited = memberList.get(i);
+				ArrayList<Boat> boats = edited.getBoatList();
+				boats.get(boatToEdit - 1).setLength(newLength);
+				break;
+			}
+		}
+		
+		try {
+			writeToMemberList();
+		}
+		catch (Exception e) {
+			
 		}
 	}
 	
