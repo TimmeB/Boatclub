@@ -28,7 +28,8 @@ public class Registry {
 	public String toString() {		// denna metod kommer ersätttas av hämtmedtod från fil
 		String listStr = "";
 		for (int i = 0; i < memberList.size(); i++) {
-			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + " ID: " + memberList.get(i).getMemberID() + "\n";
+			listStr += memberList.get(i).getName() + " PNR: " + memberList.get(i).getpNum() + " ID: " + memberList.get(i).getMemberID() + "\n"
+					+ "\nBoats:\n" + memberList.get(i).boatToString();
 		}
 		//return memberList.get(0).getName() + " " + memberList.get(0).getpNum();
 		return listStr;
@@ -121,10 +122,23 @@ public class Registry {
 
 	
 	// Register boat chapter
-	public void addBoat(String type, int size) {
+	public void addBoat(String type, int size, int inputID) {
 		Boat newBoat = new Boat(type, size);
-		//member.addBoat(newBoat);
 		
+		for (int i = 0; i < memberList.size(); i++) {
+			int membersID = memberList.get(i).getMemberID();
+			if (inputID == membersID) {
+				Member m = memberList.get(i);
+				m.addBoat(newBoat);
+				memberList.set(i, m);
+			}
+		}
+		try {
+		writeToMemberList();
+		}
+		catch (Exception e) {
+
+		}
 	}
 	
 }

@@ -1,1 +1,1 @@
-[{"name":"a","pNum":"a","memberID":1},{"name":"c","pNum":"c","memberID":3},{"name":"d","pNum":"d","memberID":4},{"name":"Erik","pNum":"666","memberID":5}]
+[{"name":"a","pNum":"a","memberID":1,"boatList":[{"type":"Dildo","length":5},{"type":"Dancer","length":5},{"type":"Mangina","length":9},{"type":"Kre","length":2}]}]

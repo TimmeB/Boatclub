@@ -1,12 +1,13 @@
 package model;
 
 import java.util.ArrayList;
+import model.Boat;
 
 public class Member {
 	private String name, pNum;
 	private int memberID;
 	private static int nextID = 0;
-	private ArrayList<Boat> boatList;
+	private ArrayList<Boat> boatList = new ArrayList<>();
 	
 	public Member() {								//Contructor without arguments is used by ObjectMapper
 
@@ -17,7 +18,7 @@ public class Member {
 		name = n;
 		pNum = pn;
 		memberID = nextID;	
-		boatList = new ArrayList<>();
+		//boatList = new ArrayList<>();
 		
 	}
 	
@@ -34,6 +35,22 @@ public class Member {
 	public int getMemberID() {
 		return memberID;
 	}
+	public ArrayList<Boat> getBoatList() {
+		return boatList;
+	}
+	public String boatToString() {
+		try {
+			String boatListStr = "";
+			for (Boat b : boatList) {
+				boatListStr += b.toString() + "\n";
+			}
+			return boatListStr;
+			//return boatList.get(0).toString();
+		}
+		catch (IndexOutOfBoundsException e) {
+			return "No boats currently registered";
+		}
+	}
 	public void setName(String newName) {
 		name = newName;
 	}
@@ -41,9 +58,10 @@ public class Member {
 		pNum = newpNum;
 	}
 	
-	public void addBoat(Boat newBoat) {		 
-		//boatList.add(newBoat);
+	public void addBoat(Boat newBoat) {	
+		boatList.add(newBoat);
 	}
+	
 	
 	
 	

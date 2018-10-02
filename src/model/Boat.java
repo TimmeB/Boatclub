@@ -21,5 +21,15 @@ public class Boat {
 		length = newLength;
 	}
 	
+	public String toString() {
+		return "Type: " + type + " Length: " + length;
+	}
+	
+	public String getType() {					
+		return type;
+	}
+	public int getLength() {					
+		return length;
+	} 
 	
 }

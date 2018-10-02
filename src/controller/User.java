@@ -190,7 +190,7 @@ public class User {
 				if (areYouSure()) {					//User has chosen to go back
 					String type = c_view.askForBoatType();
 					int size = c_view.askForBoatSize();
-					registry.addBoat(type, size);
+					registry.addBoat(type, size, input);
 					return true;
 				}
 				continue;
