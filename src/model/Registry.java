@@ -12,7 +12,6 @@ public class Registry {
 
 	private ArrayList<Member> memberList;
 	private ObjectMapper objectMapper = new ObjectMapper();
-	private Member member;
 
 	public Registry() {
 		memberList = new ArrayList<>();
@@ -24,27 +23,9 @@ public class Registry {
 		writeToMemberList();
 	}
 
-
-	public String toCompactListString() {
-		String listStr = "";
-		for (int i = 0; i < memberList.size(); i++) {
-			listStr += "Name: " + memberList.get(i).getName() + "\t\t\tID: " + memberList.get(i).getMemberID() + "\t\t\tNumber of Boats: " 
-					+ memberList.get(i).boatListSize() + "\n" + "-------------------------------------------------------------------------------\n";
-		}
-		return listStr;
+	public ArrayList<Member> getMemberList(){
+		return memberList;
 	}
-	public String toVerboseListString() {
-		String listStr = "";
-		for (int i = 0; i < memberList.size(); i++) {
-			listStr += "-------------------------------------------------------------------------------\n"
-					+ "Name: " + memberList.get(i).getName() + "\t\t\tID: " + memberList.get(i).getMemberID() + "\t\t\tPNR: " + memberList.get(i).getpNum()
-					+ "\n\nBoats: \n"
-					+ memberList.get(i).boatToString() 
-					+ "\n" + "-------------------------------------------------------------------------------\n";
-		}
-		return listStr;
-	}
-
 
 	public void writeToMemberList() throws JsonGenerationException, IOException {
 		objectMapper.writeValue(new File("Memberlist.txt"), memberList);
@@ -153,7 +134,21 @@ public class Registry {
 
 	public String boatsToString(int inputID) {
 		Member m = findMemberByID(inputID);
-		return m.boatToString();
+		
+		if (m.getBoatList().size() == 0)
+			return "No boats currently registered"; 
+		try {
+			String boatListStr = "";
+			int count = 1;
+			for (Boat b : m.getBoatList()) {
+				boatListStr += count + ". " + "Type: " + b.getType() + "\t\t\tLength: " + b.getLength() + "\n";
+				count++;
+			}
+			return boatListStr;
+		}
+		catch (IndexOutOfBoundsException e) {
+			return "No boats currently registered";
+		}
 	}
 
 	public void editBoatType(int boatToEdit, String newType, int inputID) {

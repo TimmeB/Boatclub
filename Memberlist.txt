@@ -1,1 +1,1 @@
-[{"name":"a","pNum":"a","memberID":1},{"name":"c","pNum":"c","memberID":3},{"name":"d","pNum":"d","memberID":4},{"name":"Erik","pNum":"666","memberID":5}]
+[{"name":"a","pNum":"a","memberID":1,"boatList":[]},{"name":"c","pNum":"c","memberID":3,"boatList":[]},{"name":"d","pNum":"d","memberID":4,"boatList":[]},{"name":"Erik","pNum":"666","memberID":5,"boatList":[{"type":"Sailboat","length":44},{"type":"Motorsailer","length":55}]}]

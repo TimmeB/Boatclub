@@ -1,12 +1,8 @@
 package view;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import model.Registry;
-import model.Member;
 
 public class Console {
 
@@ -52,23 +48,8 @@ public class Console {
 	
 	public String askForName() {
 		System.out.println("Enter name:");
-		
 		Scanner scan = new Scanner(System.in);						//closing scanner creates error
 		String name = scan.nextLine();
-		
-		/*
-		InputStreamReader reader = new InputStreamReader(System.in);
-	    BufferedReader in = new BufferedReader(reader);
-	    String name = "";
-	    boolean validInput = true;
-	    while(validInput)
-	    try {
-	    	name = in.readLine();
-	    	return name;
-	    }
-	    catch (IOException e) {
-	    	//e.printStackTrace();
-	    } */
 		return name;
 	}
 	public String askForPNum() {
@@ -91,18 +72,17 @@ public class Console {
 			}
 		}
 	}
-	
-	public boolean displayCompactList(Registry registry) {						
-		System.out.println("\n---------- COMPACT LIST ----------\n");
-		System.out.println(registry.toCompactListString());
-		pressEnterToContinue();
-		return true;
+	public void displayCompactInfo(String name, int memberID, int numberOfBoats) {						
+		System.out.println("Name: " + name + "\t\t\tID: " + memberID + "\t\t\tNumber of Boats: " 
+					+ numberOfBoats + "\n" + "-------------------------------------------------------------------------------\n");
 	}
-	public boolean displayVerboseList(Registry registry) {
-		System.out.println("\n---------- VERBOSE LIST ----------\n");
-		System.out.println(registry.toVerboseListString());
-		pressEnterToContinue();
-		return true;
+	public void displayVerboseInfo(String name, int memberID, String pNum, String boats) {
+		System.out.print("-------------------------------------------------------------------------------\n"
+				+ "Name: " + name + "\t\t\tID: " + memberID + "\t\t\tPNR: " + pNum
+				+ "\n\nBoats: \n"
+				+ boats 
+				+ "\n" + "-------------------------------------------------------------------------------\n");
+		
 	}
 	
 	public void listMembersMenu() {
@@ -171,17 +151,6 @@ public class Console {
 		return size;
 	}
 	
-	
-	public void printMemberInfo(Member m) {
-		String name = m.getName(), pNum = m.getpNum(), verboseInfo = "\n";
-		int memberID = m.getMemberID();
-		
-		verboseInfo += "Name: " + name + "\t\t\tID: " + memberID + "\t\t\tPNR: " + pNum
-				+ "\n\nBoats: \n"
-				+ m.boatToString() 
-				+ "\n" + "-------------------------------------------------------------------------------\n";
-		System.out.println(verboseInfo);
-	}
 	
 	public void displayInputError() {
 		System.out.println("Wrong input!");

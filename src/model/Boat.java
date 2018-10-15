@@ -21,10 +21,6 @@ public class Boat {
 		length = newLength;
 	}
 	
-	public String toString() {
-		return "Type: " + type + "\t\t\tLength: " + length;
-	}
-	
 	public String getType() {					
 		return type;
 	}

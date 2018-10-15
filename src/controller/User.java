@@ -27,11 +27,11 @@ public class User {
 
 		c_view.displayMenu();
 
-		return readInput();
+		return mainMenuOption();
 	}
 
 
-	public boolean readInput() {
+	public boolean mainMenuOption() {
 		int input = c_view.readInput();
 
 		switch (input) {
@@ -43,7 +43,7 @@ public class User {
 		case 6: return registerBoat();
 		case 7: return deleteBoat();
 		case 8: return editBoat();
-		case 9: return quit();
+		case 9: return keepProgramRunning();
 		}
 		return true;
 	}
@@ -80,10 +80,24 @@ public class User {
 				continue;
 			}
 			else {
+				
 				switch (input) {
-				case 1: return c_view.displayCompactList(registry);					
-				case 2: return c_view.displayVerboseList(registry);					
+				case 1: 
+					c_view.printString("\n---------- COMPACT LIST ----------\n");
+					for (Member m : registry.getMemberList()) {
+						c_view.displayCompactInfo(m.getName(), m.getMemberID(), m.boatListSize());
+					}
+					c_view.pressEnterToContinue();
+					break;
+				case 2: 
+					c_view.printString("\n---------- VERBOSE LIST ----------\n");
+					for (Member m : registry.getMemberList()) {
+						c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), registry.boatsToString(m.getMemberID()) );
+					}
+					c_view.pressEnterToContinue();
+					break;
 				}
+				return true;
 			}		
 		}
 	}
@@ -181,7 +195,7 @@ public class User {
 			}
 			else if (registry.idExist(input)) {
 				Member m = registry.findMemberByID(input);
-				c_view.printMemberInfo(m);
+				c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), registry.boatsToString(m.getMemberID()) );
 				c_view.pressEnterToContinue();
 				break;
 			}
@@ -383,14 +397,14 @@ public class User {
 			return false;
 		}
 	}
-	public boolean quit() {
+	public boolean keepProgramRunning() {
 		if (areYouSure()) {
 			c_view.displayQuitMessage();
 			try {
 				registry.writeToMemberList();
 			}
 			catch (Exception e) {
-				System.out.println(e);					//Should not be printed in final version
+				//System.out.println(e);					//Should not be printed in final version
 			}
 			return false;
 		}
