@@ -54,7 +54,6 @@ public class Member {
 	public void setpNum(String newpNum) {
 		pNum = newpNum;
 	}
-	
 	public void addBoat(Boat newBoat) {	
 		boatList.add(newBoat);
 	}

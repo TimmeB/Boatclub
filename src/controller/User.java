@@ -21,17 +21,17 @@ public class User {
 			registry.readFromMemberList();
 		}
 		catch (IOException e) {
-			System.out.println(e);
+			
 		}
 		c_view.displayWelcomeMessage();
 
 		c_view.displayMenu();
 
-		return mainMenuOption();
+		return getMenuChoice();
 	}
 
 
-	public boolean mainMenuOption() {
+	public boolean getMenuChoice() {
 		int input = c_view.readInput();
 
 		switch (input) {
@@ -60,7 +60,6 @@ public class User {
 			registry.createMember(name, pNum);
 		}
 		catch (Exception e) {
-			System.out.println(e);
 		}
 		return true;
 	}	
@@ -113,7 +112,7 @@ public class User {
 				return true;
 			}
 			else if (registry.idExist(input)) {
-				if (areYouSure()) {					
+				if (userConfirmation()) {					
 					registry.deleteMember(input);
 					return true;
 				}
@@ -164,7 +163,6 @@ public class User {
 				switch (input) {
 				case 1: return editName(memberID);
 				case 2: return editpNum(memberID);
-
 				}
 			}
 			break;
@@ -217,7 +215,7 @@ public class User {
 				return true;
 			}
 			else if (registry.idExist(input)) {
-				if (areYouSure()) {					
+				if (userConfirmation()) {					
 					String type = chooseBoatType();
 					int size = c_view.askForBoatSize();
 					registry.addBoat(type, size, input);
@@ -264,9 +262,9 @@ public class User {
 				return true;
 			}
 			else if (registry.idExist(inputID)) {
-				if (areYouSure()) {	
+				if (userConfirmation()) {	
 					//Choose which boat to edit
-					int boatToEdit = boatToEdit(inputID);
+					int boatToEdit = chooseBoatToEdit(inputID);
 					if (wantsToGoBack(boatToEdit)) {
 						continue;
 					}
@@ -300,7 +298,7 @@ public class User {
 		}
 	}
 
-	public int boatToEdit(int memberID) {
+	public int chooseBoatToEdit(int memberID) {
 		c_view.boatToEdit();
 		String list = registry.boatsToString(memberID);
 		Member m = registry.findMemberByID(memberID);
@@ -330,7 +328,7 @@ public class User {
 				return true;
 			}
 			else if (registry.idExist(inputID)) {
-				if (areYouSure()) {	
+				if (userConfirmation()) {	
 					//Choose which boat to delete
 					int boatToDelete = boatToDelete(inputID);
 					if (wantsToGoBack(boatToDelete)) {
@@ -369,7 +367,7 @@ public class User {
 		return input == 0;
 	}
 
-	public boolean areYouSure() {
+	public boolean userConfirmation() {
 		int yes = 1;
 		while (true) {
 			c_view.verifyChoice();
@@ -398,13 +396,13 @@ public class User {
 		}
 	}
 	public boolean keepProgramRunning() {
-		if (areYouSure()) {
+		if (userConfirmation()) {
 			c_view.displayQuitMessage();
 			try {
 				registry.writeToMemberList();
 			}
 			catch (Exception e) {
-				//System.out.println(e);					//Should not be printed in final version
+									
 			}
 			return false;
 		}

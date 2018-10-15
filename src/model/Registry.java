@@ -27,16 +27,6 @@ public class Registry {
 		return memberList;
 	}
 
-	public void writeToMemberList() throws JsonGenerationException, IOException {
-		objectMapper.writeValue(new File("Memberlist.txt"), memberList);
-	}
-
-	public void readFromMemberList () throws IOException {
-		memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
-		if (!memberList.isEmpty())
-			Member.setNextID(memberList.get(memberList.size()-1).getMemberID());
-	}
-
 	public boolean idExist(int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
@@ -100,7 +90,7 @@ public class Registry {
 		}
 	}
 
-	public Member findMemberByID(int inputID) {						//Reuse for editpNum & editName & maybe idExist
+	public Member findMemberByID(int inputID) {						
 		for (int i= 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
 			if (inputID == membersID) {
@@ -112,7 +102,6 @@ public class Registry {
 	}
 
 
-	// Register boat chapter
 	public void addBoat(String type, int size, int inputID) {
 		Boat newBoat = new Boat(type, size);
 
@@ -205,5 +194,18 @@ public class Registry {
 
 		}
 	}
+	
+	
+	//READ & WRITE TO FILE (JSON FORMAT)
+	
+		public void writeToMemberList() throws JsonGenerationException, IOException {
+			objectMapper.writeValue(new File("Memberlist.txt"), memberList);
+		}
+
+		public void readFromMemberList () throws IOException {
+			memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
+			if (!memberList.isEmpty())
+				Member.setNextID(memberList.get(memberList.size()-1).getMemberID());
+		}
 
 }

@@ -34,13 +34,13 @@ public class Console {
 			return input;
 		}
 		catch (InputMismatchException e){
-			//displayInputError() will be called from controller
+			
 		}
 		
 		return -1;
 	}
 	public void pressEnterToContinue() {
-		Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);						//closing scanner creates error
 		System.out.println("Press enter to continue..");
 		scan.nextLine();
 	}
@@ -54,7 +54,7 @@ public class Console {
 	}
 	public String askForPNum() {
 		System.out.println("Enter personal number (YYYYMMDDXXXX): ");
-		Scanner scan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);								//closing scanner creates error
 		String pNum = scan.nextLine();
 		return pNum;
 	}
@@ -146,7 +146,7 @@ public class Console {
 	
 	public int askForBoatSize() {
 		System.out.println("Enter boatsize: ");
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);					//closing scanner creates error
 		int size = sc.nextInt();
 		return size;
 	}

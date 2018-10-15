@@ -4,7 +4,7 @@ public class Boat {
 	private String type;
 	private int length;
 	
-	public Boat () {
+	public Boat () {								//Contructor without arguments is used by ObjectMapper
 		
 	}
 	
