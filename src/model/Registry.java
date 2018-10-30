@@ -12,13 +12,18 @@ public class Registry {
 
 	private ArrayList<Member> memberList;
 	private ObjectMapper objectMapper = new ObjectMapper();
-
+	
 	public Registry() {
 		memberList = new ArrayList<>();
 	}
 
 	public void createMember(String name, String pNum) throws JsonGenerationException, IOException {
-		Member member = new Member(name, pNum);
+		int memberID = 0;
+		if (!memberList.isEmpty()) {
+			memberID = memberList.get(memberList.size()-1).getMemberID();
+		}
+			
+		Member member = new Member(name, pNum, memberID);
 		memberList.add(member);
 		writeToMemberList();
 	}
@@ -195,6 +200,12 @@ public class Registry {
 		}
 	}
 	
+//	public void updateMemberId() {
+//		if (!memberList.isEmpty())
+//			int testelitest = memberList.get(memberList.size()-1).getMemberID();
+//
+//	}
+	
 	
 	//READ & WRITE TO FILE (JSON FORMAT)
 	
@@ -204,8 +215,6 @@ public class Registry {
 
 		public void readFromMemberList () throws IOException {
 			memberList = objectMapper.readValue(new File("Memberlist.txt"), new TypeReference<ArrayList<Member>>(){});
-			if (!memberList.isEmpty())
-				Member.setNextID(memberList.get(memberList.size()-1).getMemberID());
 		}
 
 }
