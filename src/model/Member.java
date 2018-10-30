@@ -45,7 +45,7 @@ public class Member {
 	}
 	
 	public ArrayList<Boat> getBoatList() {
-		return boatList;
+		return new ArrayList<>(boatList);
 	}
 	
 	public void setName(String newName) {

@@ -92,7 +92,7 @@ public class User {
 				case 2: 
 					c_view.printString("\n---------- VERBOSE LIST ----------\n");
 					for (Member m : registry.getMemberList()) {
-						c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), registry.boatsToString(m.getMemberID()) );
+						c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), m.getBoatList() );
 					}
 					c_view.pressEnterToContinue();
 					break;
@@ -194,7 +194,8 @@ public class User {
 			}
 			else if (registry.idExist(input)) {
 				Member m = registry.findMemberByID(input);
-				c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), registry.boatsToString(m.getMemberID()) );
+				//c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), registry.boatsToString(m.getMemberID()) );
+				c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), m.getBoatList() );
 				c_view.pressEnterToContinue();
 				break;
 			}
@@ -301,8 +302,8 @@ public class User {
 
 	public int chooseBoatToEdit(int memberID) {
 		c_view.boatToEdit();
-		String list = registry.boatsToString(memberID);
 		Member m = registry.findMemberByID(memberID);
+		String list = c_view.boatsToString(m.getBoatList());
 		int min = 1, max = m.boatListSize();
 		while (true) {
 			c_view.printString(list);
@@ -344,8 +345,8 @@ public class User {
 
 	public int boatToDelete(int memberID) {
 		c_view.boatToDelete();
-		String list = registry.boatsToString(memberID);
 		Member m = registry.findMemberByID(memberID);
+		String list = c_view.boatsToString(m.getBoatList());
 		int min = 1, max = m.boatListSize();
 		while (true) {
 			c_view.printString(list);

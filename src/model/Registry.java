@@ -26,7 +26,7 @@ public class Registry {
 	}
 
 	public ArrayList<Member> getMemberList(){
-		return memberList;
+		return new ArrayList<>(memberList);
 	}
 
 	public boolean idExist(int inputID) {
@@ -120,25 +120,6 @@ public class Registry {
 		}
 		catch (Exception e) {
 
-		}
-	}
-
-	public String boatsToString(int inputID) {
-		Member m = findMemberByID(inputID);
-		
-		if (m.getBoatList().size() == 0)
-			return "No boats currently registered"; 
-		try {
-			String boatListStr = "";
-			int count = 1;
-			for (Boat b : m.getBoatList()) {
-				boatListStr += count + ". " + "Type: " + b.getType() + "\t\t\tLength: " + b.getLength() + "\n";
-				count++;
-			}
-			return boatListStr;
-		}
-		catch (IndexOutOfBoundsException e) {
-			return "No boats currently registered";
 		}
 	}
 
