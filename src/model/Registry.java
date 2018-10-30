@@ -8,6 +8,8 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import model.Boat.Type;
+
 public class Registry {
 
 	private ArrayList<Member> memberList;
@@ -29,7 +31,7 @@ public class Registry {
 	}
 
 	public ArrayList<Member> getMemberList(){
-		return memberList;
+		return new ArrayList<>(memberList);
 	}
 
 	public boolean idExist(int inputID) {
@@ -107,7 +109,7 @@ public class Registry {
 	}
 
 
-	public void addBoat(String type, int size, int inputID) {
+	public void addBoat(Type type, int size, int inputID) {
 		Boat newBoat = new Boat(type, size);
 
 		for (int i = 0; i < memberList.size(); i++) {
@@ -126,26 +128,7 @@ public class Registry {
 		}
 	}
 
-	public String boatsToString(int inputID) {
-		Member m = findMemberByID(inputID);
-		
-		if (m.getBoatList().size() == 0)
-			return "No boats currently registered"; 
-		try {
-			String boatListStr = "";
-			int count = 1;
-			for (Boat b : m.getBoatList()) {
-				boatListStr += count + ". " + "Type: " + b.getType() + "\t\t\tLength: " + b.getLength() + "\n";
-				count++;
-			}
-			return boatListStr;
-		}
-		catch (IndexOutOfBoundsException e) {
-			return "No boats currently registered";
-		}
-	}
-
-	public void editBoatType(int boatToEdit, String newType, int inputID) {
+	public void editBoatType(int boatToEdit, Type newType, int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
 			if (inputID == membersID) {

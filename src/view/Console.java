@@ -1,8 +1,10 @@
 package view;
 
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import model.Boat;
 
 public class Console {
 
@@ -76,13 +78,31 @@ public class Console {
 		System.out.println("Name: " + name + "\t\t\tID: " + memberID + "\t\t\tNumber of Boats: " 
 					+ numberOfBoats + "\n" + "-------------------------------------------------------------------------------\n");
 	}
-	public void displayVerboseInfo(String name, int memberID, String pNum, String boats) {
+	public void displayVerboseInfo(String name, int memberID, String pNum, ArrayList<Boat> boats) {
 		System.out.print("-------------------------------------------------------------------------------\n"
 				+ "Name: " + name + "\t\t\tID: " + memberID + "\t\t\tPNR: " + pNum
 				+ "\n\nBoats: \n"
-				+ boats 
+				+ boatsToString(boats) 
 				+ "\n" + "-------------------------------------------------------------------------------\n");
 		
+	}
+	
+	public String boatsToString(ArrayList<Boat> boats) {
+		
+		if (boats.size() == 0)
+			return "No boats currently registered"; 
+		try {
+			String boatListStr = "";
+			int count = 1;
+			for (Boat b : boats) {
+				boatListStr += count + ". " + "Type: " + b.getType() + "\t\t\tLength: " + b.getLength() + "\n";
+				count++;
+			}
+			return boatListStr;
+		}
+		catch (IndexOutOfBoundsException e) {
+			return "No boats currently registered";
+		}
 	}
 	
 	public void listMembersMenu() {

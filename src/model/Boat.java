@@ -1,19 +1,26 @@
 package model;
 
 public class Boat {
-	private String type;
+	private Type type;
 	private int length;
+		
+	public enum Type{
+		Sailboat,
+		Motorsailer,
+		Canoe,
+		Other;
+	}
 	
 	public Boat () {								//Contructor without arguments is used by ObjectMapper
 		
 	}
 	
-	public Boat (String type, int length) {
+	public Boat (Type type, int length) {
 		this.type = type;
 		this.length = length;
 	}
 	
-	public void setType(String newType) {
+	public void setType(Type newType) {
 		type = newType;
 	}
 	
@@ -21,9 +28,10 @@ public class Boat {
 		length = newLength;
 	}
 	
-	public String getType() {					
+	public Type getType() {					
 		return type;
 	}
+	
 	public int getLength() {					
 		return length;
 	} 
