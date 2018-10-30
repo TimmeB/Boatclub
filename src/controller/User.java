@@ -31,7 +31,7 @@ public class User {
 		return getMenuChoice();
 	}
 
-
+/*
 	public boolean getMenuChoice() {
 		int input = c_view.readInput();
 
@@ -46,6 +46,31 @@ public class User {
 		case 8: return editBoat();
 		case 9: return keepProgramRunning();
 		}
+		return true;
+	} */
+	public boolean getMenuChoice() {
+		c_view.readInput();
+
+		if (c_view.wantsToAddMember())
+			createMember();
+		else if (c_view.wantsToListMembers())
+			listMembers();
+		else if (c_view.wantsToDeleteMember())
+			deleteMember();
+		else if (c_view.wantsToEditMember())
+			editMemberMain();
+		else if (c_view.wantsToViewMember())
+			viewSpecificMember();
+		else if (c_view.wantsToRegisterBoat())
+			registerBoat();
+		else if (c_view.wantsToDeleteBoat())
+			deleteBoat();
+		else if (c_view.wantsToEditBoat())
+			editBoat();
+		else if (c_view.wantsToQuit())
+			return keepProgramRunning();
+		
+		
 		return true;
 	}
 
@@ -71,9 +96,9 @@ public class User {
 	public boolean listMembers() {
 		while(true) {
 			c_view.listMembersMenu();
-			int input = c_view.readInput();
+			c_view.readInput();
 			int lowest = 1, max = 2;
-			if (wantsToGoBack(input)) {
+			if (c_view.wantsToGoBack()) {
 				return true;
 			}
 			else if (inputIsInvalid(input, lowest, max)) {

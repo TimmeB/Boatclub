@@ -7,7 +7,7 @@ import java.util.Scanner;
 import model.Boat;
 
 public class Console {
-
+	private int userInput;
 	public Console() {
 		
 	}
@@ -29,17 +29,14 @@ public class Console {
 		
 	}
 	
-	public int readInput() {
+	public void readInput() {
 		Scanner scan = new Scanner(System.in);						//closing scanner creates error
 		try {
-			int input = scan.nextInt();
-			return input;
+			userInput = scan.nextInt();
 		}
 		catch (InputMismatchException e){
 			
 		}
-		
-		return -1;
 	}
 	public void pressEnterToContinue() {
 		Scanner scan = new Scanner(System.in);						//closing scanner creates error
@@ -63,14 +60,14 @@ public class Console {
 	public int askForID() {
 		while(true) {
 			System.out.println("Which member do you want to view? (Enter ID or '0' to go back)");
-			int input = readInput();
+			readInput();
 			int badInput = -1;
-			if (input == badInput) {
+			if (userInput == badInput) {
 				displayInputError();
 				continue;
 			}
 			else {
-				return input;
+				return userInput;
 			}
 		}
 	}
@@ -184,4 +181,69 @@ public class Console {
 		System.out.println("Application closed");
 	}
 	
+	
+	// The wantsToChapter
+	 public boolean wantsToAddMember() {
+	  return userInput == 1;
+	 }
+	 
+	 public boolean wantsToListMembers() {
+	  return userInput == 2;
+	 }
+	 
+	 public boolean wantsToDeleteMember() {
+	  return userInput == 3;
+	 }
+	 
+	 public boolean wantsToEditMember() {
+	  return userInput == 4;
+	 }
+	 
+	 public boolean wantsToViewMember() {
+	  return userInput == 5;
+	 }
+	 
+	 public boolean wantsToRegisterBoat() {
+	  return userInput == 6;
+	 }
+	 
+	 public boolean wantsToDeleteBoat() {
+	  return userInput == 7;
+	 }
+	 
+	 public boolean wantsToEditBoat() {
+	  return userInput == 8;
+	 }
+	 
+	 public boolean wantsToQuit() {
+	  return userInput == 9;
+	 }
+	 
+	 public boolean wantsToListCompact() {
+	  return userInput == 1;
+	 }
+	 
+	 public boolean wantsToListVerbose() {
+	  return userInput == 2;
+	 }
+	 
+	 public boolean wantsToGoBack() {
+	  return userInput == 0;
+	 }
+	 
+	 public boolean wantsToEditMemberName() {
+	  return userInput == 1;
+	 }
+	 
+	 public boolean wantsToEditPersonalNumber() {
+	  return userInput == 2;
+	 }
+	 
+	 public boolean wantsToEditBoatType() {
+	  return userInput == 1;
+	 }
+	 
+	 public boolean wantsToEditBoatSize() {
+	  return userInput == 2;
+	 }
 }
