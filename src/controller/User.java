@@ -3,6 +3,7 @@ package controller;
 import view.Console;
 import model.Member;
 import model.Registry;
+import model.Boat.Type;
 
 import java.io.IOException;
 
@@ -216,7 +217,7 @@ public class User {
 			}
 			else if (registry.idExist(input)) {
 				if (userConfirmation()) {					
-					String type = chooseBoatType();
+					Type type = chooseBoatType();
 					int size = c_view.askForBoatSize();
 					registry.addBoat(type, size, input);
 					return true;
@@ -231,7 +232,7 @@ public class User {
 
 
 
-	public String chooseBoatType() {
+	public Type chooseBoatType() {
 		int min = 1, max = 4;
 		while (true) {
 			c_view.askForBoatType();
@@ -241,10 +242,10 @@ public class User {
 			}
 			else {
 				switch (typeInput) {
-				case 1: return "Sailboat";
-				case 2: return "Motorsailer";
-				case 3: return "Kayak/Canoe";
-				case 4: return "Other";
+				case 1: return Type.Sailboat;
+				case 2: return Type.Motorsailer;
+				case 3: return Type.Canoe;
+				case 4: return Type.Other;
 				}
 			}
 		}
@@ -281,7 +282,7 @@ public class User {
 							continue;
 						}
 						else if (inputChoice == 1) {									//1 = edit type
-							String type = chooseBoatType();
+							Type type = chooseBoatType();
 							registry.editBoatType(boatToEdit, type, inputID);
 						}
 						else if (inputChoice == 2) {									//2 = edit size
