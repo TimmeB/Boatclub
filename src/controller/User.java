@@ -192,13 +192,13 @@ public class User {
 	public boolean viewSpecificMember() {
 		while (true) {
 			c_view.printString("Which member do you want to view? (Enter ID or '0' to go back)");
-			int input = c_view.askForID();
+			int inputID = c_view.askForID();
 			
 			if (c_view.wantsToGoBack()) {
 				return true;
 			}
-			else if (registry.idExist(input)) {
-				Member m = registry.findMemberByID(input);
+			else if (registry.idExist(inputID)) {
+				Member m = registry.findMemberByID(inputID);
 				c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), m.getBoatList() );
 				c_view.pressEnterToContinue();
 				break;
