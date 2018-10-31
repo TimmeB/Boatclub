@@ -31,27 +31,11 @@ public class User {
 		return getMenuChoice();
 	}
 
-/*
-	public boolean getMenuChoice() {
-		int input = c_view.readInput();
 
-		switch (input) {
-		case 1: return createMember();
-		case 2: return listMembers();
-		case 3: return deleteMember();
-		case 4: return editMemberMain();
-		case 5: return viewSpecificMember();
-		case 6: return registerBoat();
-		case 7: return deleteBoat();
-		case 8: return editBoat();
-		case 9: return keepProgramRunning();
-		}
-		return true;
-	} */
 	public boolean getMenuChoice() {
 		c_view.readInput();
-
-		if (c_view.wantsToAddMember())
+		
+		if (c_view.wantsToAddMember()) 
 			createMember();
 		else if (c_view.wantsToListMembers())
 			listMembers();
@@ -78,7 +62,6 @@ public class User {
 	
 	//ADD MEMBERS
 
-
 	public boolean createMember() {
 		String name = c_view.askForName();
 		String pNum = c_view.askForPNum();								
@@ -97,34 +80,30 @@ public class User {
 		while(true) {
 			c_view.listMembersMenu();
 			c_view.readInput();
-			int lowest = 1, max = 2;
 			if (c_view.wantsToGoBack()) {
 				return true;
 			}
-			else if (inputIsInvalid(input, lowest, max)) {
-				continue;
+			else if (c_view.wantsToListCompact()) {
+				c_view.printString("\n---------- COMPACT LIST ----------\n");
+				for (Member m : registry.getMemberList()) {
+					c_view.displayCompactInfo(m.getName(), m.getMemberID(), m.boatListSize());
+				}
+				c_view.pressEnterToContinue();
+				break;
+			}
+			else if (c_view.wantsToListVerbose()) { 
+				c_view.printString("\n---------- VERBOSE LIST ----------\n");
+				for (Member m : registry.getMemberList()) {
+					c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), m.getBoatList() );
+				}
+				c_view.pressEnterToContinue();
+				break;
 			}
 			else {
-				
-				switch (input) {
-				case 1: 
-					c_view.printString("\n---------- COMPACT LIST ----------\n");
-					for (Member m : registry.getMemberList()) {
-						c_view.displayCompactInfo(m.getName(), m.getMemberID(), m.boatListSize());
-					}
-					c_view.pressEnterToContinue();
-					break;
-				case 2: 
-					c_view.printString("\n---------- VERBOSE LIST ----------\n");
-					for (Member m : registry.getMemberList()) {
-						c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), m.getBoatList() );
-					}
-					c_view.pressEnterToContinue();
-					break;
-				}
-				return true;
-			}		
-		}
+				continue;
+			}
+		}	
+		return true;
 	}
 	
 	
@@ -133,8 +112,8 @@ public class User {
 	public boolean deleteMember() {
 		while (true) {
 			c_view.memberToDelete();
-			int input = c_view.readInput();
-			if (wantsToGoBack(input)) {
+			int input = c_view.askForID();
+			if (c_view.wantsToGoBack()) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
@@ -157,8 +136,8 @@ public class User {
 	public boolean editMemberMain() {
 		while (true) {
 			c_view.memberToEdit();
-			int input = c_view.readInput();
-			if (wantsToGoBack(input)) {
+			int input = c_view.askForID();
+			if (c_view.wantsToGoBack()) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
@@ -175,21 +154,20 @@ public class User {
 		return true;									
 	}
 	public boolean makeEditChoice(int memberID) {
-		int lowest = 1, max = 2;
 		while (true) {
 			c_view.displayEditMenu();
-			int input = c_view.readInput();
-			if (wantsToGoBack(input)) {
+			c_view.readInput();
+			if (c_view.wantsToGoBack()) {
 				return false;
 			}
-			else if (inputIsInvalid(input, lowest, max)) {
-				continue;
+			else if (c_view.wantsToEditMemberName()) {
+				editName(memberID);
+			}
+			else if (c_view.wantsToEditPersonalNumber()) {
+				editpNum(memberID);
 			}
 			else {
-				switch (input) {
-				case 1: return editName(memberID);
-				case 2: return editpNum(memberID);
-				}
+				continue;
 			}
 			break;
 		}
@@ -212,14 +190,14 @@ public class User {
 	
 	public boolean viewSpecificMember() {
 		while (true) {
+			c_view.printString("Which member do you want to view? (Enter ID or '0' to go back)");
 			int input = c_view.askForID();
 			
-			if (wantsToGoBack(input)) {
+			if (c_view.wantsToGoBack()) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
 				Member m = registry.findMemberByID(input);
-				//c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), registry.boatsToString(m.getMemberID()) );
 				c_view.displayVerboseInfo(m.getName(), m.getMemberID(), m.getpNum(), m.getBoatList() );
 				c_view.pressEnterToContinue();
 				break;
@@ -237,8 +215,8 @@ public class User {
 	public boolean registerBoat() {
 		while (true) {
 			c_view.memberToAddBoat();
-			int input = c_view.readInput();
-			if (wantsToGoBack(input)) {
+			int input = c_view.askForID();
+			if (c_view.wantsToGoBack()) {
 				return true;
 			}
 			else if (registry.idExist(input)) {
@@ -259,20 +237,23 @@ public class User {
 
 
 	public Type chooseBoatType() {
-		int min = 1, max = 4;
 		while (true) {
 			c_view.askForBoatType();
-			int typeInput = c_view.readInput();
-			if (inputIsInvalid(typeInput, min, max)) {
-				continue;
+			c_view.readInput();
+			if (c_view.wantsToRegSailboat()) {
+				return Type.Sailboat;
+			}
+			else if (c_view.wantsToRegMotorsailer()) {
+				return Type.Motorsailer;
+			}
+			else if (c_view.wantsToRegCanoe()) {
+				return Type.Canoe;
+			}
+			else if (c_view.wantsToRegOther()) {
+				return Type.Other;
 			}
 			else {
-				switch (typeInput) {
-				case 1: return Type.Sailboat;
-				case 2: return Type.Motorsailer;
-				case 3: return Type.Canoe;
-				case 4: return Type.Other;
-				}
+				continue;
 			}
 		}
 	}
@@ -284,36 +265,35 @@ public class User {
 		while (true) {
 			//Choose which member
 			c_view.membersBoatToEdit();
-			int inputID = c_view.readInput();
-			if (wantsToGoBack(inputID)) {
+			int inputID = c_view.askForID();
+			if (c_view.wantsToGoBack()) {
 				return true;
 			}
 			else if (registry.idExist(inputID)) {
 				if (userConfirmation()) {	
 					//Choose which boat to edit
 					int boatToEdit = chooseBoatToEdit(inputID);
-					if (wantsToGoBack(boatToEdit)) {
+					if (c_view.wantsToGoBack()) {
 						continue;
 					}
 
 					//Choose what to edit
 					while (true) {
-						int min = 1, max = 2;
 						c_view.displayBoatEditMenu();
-						int inputChoice = c_view.readInput();
-						if (wantsToGoBack(inputChoice)) {
+						c_view.readInput();
+						if (c_view.wantsToGoBack()) {
 							return true;
 						}
-						else if (inputIsInvalid(inputChoice, min, max)) {
-							continue;
-						}
-						else if (inputChoice == 1) {									//1 = edit type
+						else if (c_view.wantsToEditBoatType()) {									
 							Type type = chooseBoatType();
 							registry.editBoatType(boatToEdit, type, inputID);
 						}
-						else if (inputChoice == 2) {									//2 = edit size
+						else if (c_view.wantsToEditBoatSize()) {									
 							int size = c_view.askForBoatSize();
 							registry.editBoatSize(boatToEdit, size, inputID);
+						}
+						else {
+							continue;
 						}
 						return true;
 					}
@@ -326,21 +306,26 @@ public class User {
 	}
 
 	public int chooseBoatToEdit(int memberID) {
-		c_view.boatToEdit();
 		Member m = registry.findMemberByID(memberID);
 		String list = c_view.boatsToString(m.getBoatList());
-		int min = 1, max = m.boatListSize();
 		while (true) {
+			c_view.boatToEdit();
 			c_view.printString(list);
-			int input = c_view.readInput();
-			if (wantsToGoBack(input)) {
+			int input = c_view.askForBoatID();
+			if (c_view.wantsToGoBack()) {
 				return 0;
 			}
-			else if (inputIsInvalid(input, min, max)) {
-				continue;
+			else {
+				try {
+					if (m.getBoatList().get(input-1) != null)
+						return input;
+					else
+						continue;
+				}
+				catch (Exception e) {
+					continue;
+				}	
 			}
-
-			return input;
 		}
 	}
 		
@@ -350,18 +335,20 @@ public class User {
 	public boolean deleteBoat() {
 		while (true) {
 			c_view.membersBoatToDelete();
-			int inputID = c_view.readInput();
-			if (wantsToGoBack(inputID)) {
+			int inputID = c_view.askForID();
+			if (c_view.wantsToGoBack()) {
 				return true;
 			}
 			else if (registry.idExist(inputID)) {
 				if (userConfirmation()) {	
 					//Choose which boat to delete
 					int boatToDelete = boatToDelete(inputID);
-					if (wantsToGoBack(boatToDelete)) {
+					if (c_view.wantsToGoBack()) {
 						continue;
 					}
-					else registry.deleteBoat(inputID, boatToDelete);
+					else {
+						registry.deleteBoat(inputID, boatToDelete);
+					}
 					return true;
 				}
 			}
@@ -369,46 +356,46 @@ public class User {
 	}
 
 	public int boatToDelete(int memberID) {
-		c_view.boatToDelete();
 		Member m = registry.findMemberByID(memberID);
 		String list = c_view.boatsToString(m.getBoatList());
-		int min = 1, max = m.boatListSize();
+		
 		while (true) {
+			c_view.boatToDelete();
 			c_view.printString(list);
-			int input = c_view.readInput();
-			if (wantsToGoBack(input)) {
+			int boatID = c_view.askForBoatID();
+			if (c_view.wantsToGoBack()) {
 				return 0;
 			}
-			else if (inputIsInvalid(input, min, max)) {
-				continue;
+			else {
+				try {
+					if (m.getBoatList().get(boatID-1) != null)
+						return boatID;
+					else
+						c_view.displayInputError();
+						continue;
+				}
+				catch (Exception e) {
+					c_view.displayInputError();
+					continue;
+				}	
 			}
-
-			return input;
 		}
 	}		
 
 	
 	//OTHER
-	
-	public boolean wantsToGoBack(int input) {
-		return input == 0;
-	}
 
 	public boolean userConfirmation() {
-		int yes = 1;
 		while (true) {
 			c_view.verifyChoice();
-			int input = c_view.readInput();
-			int lowest = 1, max = 2;
-			if (inputIsInvalid(input, lowest, max)) {
-				continue;
-			}
-			else if (input == yes) {
+			c_view.readInput();
+			if (c_view.wantsToProceed()) {
 				return true;
 			}
-			else {
+			else if (c_view.dontWantToProceed()) {
 				return false;
 			}
+			continue;
 		}
 
 	} 

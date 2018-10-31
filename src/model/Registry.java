@@ -168,6 +168,7 @@ public class Registry {
 				Member edited = memberList.get(i);
 				ArrayList<Boat> boats = edited.getBoatList();
 				boats.remove(boatToDelete-1);
+				edited.setBoatList(boats);
 			}
 		}
 		try {
