@@ -7,7 +7,8 @@ import java.util.Scanner;
 import model.Boat;
 
 public class Console {
-	private int userInput;
+	private int userInput;	
+	
 	public Console() {
 		
 	}
@@ -35,15 +36,15 @@ public class Console {
 			userInput = scan.nextInt();
 		}
 		catch (InputMismatchException e){
-			
+			userInput = -1;
 		}
+		
 	}
 	public void pressEnterToContinue() {
 		Scanner scan = new Scanner(System.in);						//closing scanner creates error
 		System.out.println("Press enter to continue..");
 		scan.nextLine();
 	}
-	
 	
 	public String askForName() {
 		System.out.println("Enter name:");
@@ -59,18 +60,29 @@ public class Console {
 	}
 	public int askForID() {
 		while(true) {
-			System.out.println("Which member do you want to view? (Enter ID or '0' to go back)");
 			readInput();
 			int badInput = -1;
 			if (userInput == badInput) {
-				displayInputError();
-				continue;
+				return badInput;
 			}
 			else {
 				return userInput;
 			}
 		}
 	}
+	public int askForBoatID() {
+		while(true) {
+			readInput();
+			int badInput = -1;
+			if (userInput == badInput) {
+				return badInput;
+			}
+			else {
+				return userInput;
+			}
+		}
+	}
+	
 	public void displayCompactInfo(String name, int memberID, int numberOfBoats) {						
 		System.out.println("Name: " + name + "\t\t\tID: " + memberID + "\t\t\tNumber of Boats: " 
 					+ numberOfBoats + "\n" + "-------------------------------------------------------------------------------\n");
@@ -81,11 +93,9 @@ public class Console {
 				+ "\n\nBoats: \n"
 				+ boatsToString(boats) 
 				+ "\n" + "-------------------------------------------------------------------------------\n");
-		
 	}
 	
 	public String boatsToString(ArrayList<Boat> boats) {
-		
 		if (boats.size() == 0)
 			return "No boats currently registered"; 
 		try {
@@ -101,6 +111,7 @@ public class Console {
 			return "No boats currently registered";
 		}
 	}
+	
 	
 	public void listMembersMenu() {
 		System.out.println("How would you like to list members?");
@@ -182,9 +193,9 @@ public class Console {
 	}
 	
 	
-	// The wantsToChapter
+	// SECTION FOR USER CHOICES
 	 public boolean wantsToAddMember() {
-	  return userInput == 1;
+	  return (userInput == 1);
 	 }
 	 
 	 public boolean wantsToListMembers() {
@@ -245,5 +256,25 @@ public class Console {
 	 
 	 public boolean wantsToEditBoatSize() {
 	  return userInput == 2;
+	 }
+	 
+	 public boolean wantsToProceed() {
+		 return userInput == 1;
+	 }
+	 public boolean dontWantToProceed() {
+		 return userInput == 2;
+	 }
+	 
+	 public boolean wantsToRegSailboat() {
+		 return userInput == 1;
+	 }
+	 public boolean wantsToRegMotorsailer() {
+		 return userInput == 2;
+	 }
+	 public boolean wantsToRegCanoe() {
+		 return userInput == 3;
+	 }
+	 public boolean wantsToRegOther() {
+		 return userInput == 4;
 	 }
 }

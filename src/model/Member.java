@@ -49,6 +49,9 @@ public class Member {
 	public void setpNum(String newpNum) {
 		pNum = newpNum;
 	}
+	public void setBoatList(ArrayList<Boat> newList) {
+		boatList = newList;
+	}
 	public void addBoat(Boat newBoat) {	
 		boatList.add(newBoat);
 	}
