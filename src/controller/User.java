@@ -86,7 +86,7 @@ public class User {
 			else if (c_view.wantsToListCompact()) {
 				c_view.printString("\n---------- COMPACT LIST ----------\n");
 				for (Member m : registry.getMemberList()) {
-					c_view.displayCompactInfo(m.getName(), m.getMemberID(), m.boatListSize());
+					c_view.displayCompactInfo(m.getName(), m.getMemberID(), m.getBoatList().size());
 				}
 				c_view.pressEnterToContinue();
 				break;

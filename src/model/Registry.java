@@ -184,12 +184,6 @@ public class Registry {
 		}
 	}
 	
-//	public void updateMemberId() {
-//		if (!memberList.isEmpty())
-//			int testelitest = memberList.get(memberList.size()-1).getMemberID();
-//
-//	}
-	
 	
 	//READ & WRITE TO FILE (JSON FORMAT)
 	

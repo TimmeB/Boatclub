@@ -29,15 +29,6 @@ public class Member {
 	public int getMemberID() {
 		return memberID;
 	}
-
-	public int boatListSize() {				
-		try {
-			return boatList.size();
-		}
-		catch (Exception e) {
-			return 0;
-		}
-	}
 	
 	public ArrayList<Boat> getBoatList() {
 		return new ArrayList<>(boatList);
