@@ -3,7 +3,7 @@ package controller;
 import view.Console;
 import model.Member;
 import model.Registry;
-import model.Boat.Type;
+import model.Boat.BoatType;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ public class User {
 		c_view.readInput();
 		
 		if (c_view.wantsToAddMember()) 
-			createMember();
+			addMember();
 		else if (c_view.wantsToListMembers())
 			listMembers();
 		else if (c_view.wantsToDeleteMember())
@@ -62,7 +62,7 @@ public class User {
 	
 	//ADD MEMBERS
 
-	public boolean createMember() {
+	public boolean addMember() {
 		String name = c_view.askForName();
 		String pNum = c_view.askForPNum();								
 		try {
@@ -167,6 +167,7 @@ public class User {
 				editpNum(memberID);
 			}
 			else {
+				c_view.displayInputError();
 				continue;
 			}
 			break;
@@ -221,7 +222,7 @@ public class User {
 			}
 			else if (registry.idExist(input)) {
 				if (userConfirmation()) {					
-					Type type = chooseBoatType();
+					BoatType type = chooseBoatType();
 					int size = c_view.askForBoatSize();
 					registry.addBoat(type, size, input);
 					return true;
@@ -236,21 +237,21 @@ public class User {
 
 
 
-	public Type chooseBoatType() {
+	public BoatType chooseBoatType() {
 		while (true) {
 			c_view.askForBoatType();
 			c_view.readInput();
 			if (c_view.wantsToRegSailboat()) {
-				return Type.Sailboat;
+				return BoatType.Sailboat;
 			}
 			else if (c_view.wantsToRegMotorsailer()) {
-				return Type.Motorsailer;
+				return BoatType.Motorsailer;
 			}
 			else if (c_view.wantsToRegCanoe()) {
-				return Type.Canoe;
+				return BoatType.Canoe;
 			}
 			else if (c_view.wantsToRegOther()) {
-				return Type.Other;
+				return BoatType.Other;
 			}
 			else {
 				continue;
@@ -285,7 +286,7 @@ public class User {
 							return true;
 						}
 						else if (c_view.wantsToEditBoatType()) {									
-							Type type = chooseBoatType();
+							BoatType type = chooseBoatType();
 							registry.editBoatType(boatToEdit, type, inputID);
 						}
 						else if (c_view.wantsToEditBoatSize()) {									
@@ -293,6 +294,7 @@ public class User {
 							registry.editBoatSize(boatToEdit, size, inputID);
 						}
 						else {
+							c_view.displayInputError();
 							continue;
 						}
 						return true;
@@ -300,6 +302,7 @@ public class User {
 				}
 			}
 			else {
+				c_view.displayInputError();
 				continue;
 			}
 		}
@@ -351,6 +354,9 @@ public class User {
 					}
 					return true;
 				}
+			}
+			else {
+				c_view.displayInputError();
 			}
 		}
 	}

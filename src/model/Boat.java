@@ -1,10 +1,10 @@
 package model;
 
 public class Boat {
-	private Type type;
+	private BoatType type;
 	private int length;
 		
-	public enum Type{
+	public enum BoatType{
 		Sailboat,
 		Motorsailer,
 		Canoe,
@@ -15,12 +15,12 @@ public class Boat {
 		
 	}
 	
-	public Boat (Type type, int length) {
+	public Boat (BoatType type, int length) {
 		this.type = type;
 		this.length = length;
 	}
 	
-	public void setType(Type newType) {
+	public void setType(BoatType newType) {
 		type = newType;
 	}
 	
@@ -28,7 +28,7 @@ public class Boat {
 		length = newLength;
 	}
 	
-	public Type getType() {					
+	public BoatType getType() {					
 		return type;
 	}
 	

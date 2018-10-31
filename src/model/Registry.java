@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import model.Boat.Type;
+import model.Boat.BoatType;
 
 public class Registry {
 
@@ -96,6 +96,7 @@ public class Registry {
 
 		}
 	}
+	
 
 	public Member findMemberByID(int inputID) {						
 		for (int i= 0; i < memberList.size(); i++) {
@@ -109,7 +110,7 @@ public class Registry {
 	}
 
 
-	public void addBoat(Type type, int size, int inputID) {
+	public void addBoat(BoatType type, int size, int inputID) {
 		Boat newBoat = new Boat(type, size);
 
 		for (int i = 0; i < memberList.size(); i++) {
@@ -128,7 +129,7 @@ public class Registry {
 		}
 	}
 
-	public void editBoatType(int boatToEdit, Type newType, int inputID) {
+	public void editBoatType(int boatToEdit, BoatType newType, int inputID) {
 		for (int i = 0; i < memberList.size(); i++) {
 			int membersID = memberList.get(i).getMemberID();
 			if (inputID == membersID) {

@@ -1,1 +1,1 @@
-[{"name":"Timme","pNum":"3456","memberID":2,"boatList":[{"type":"Sailboat","length":333}]},{"name":"Erik","pNum":"7654","memberID":3,"boatList":[]}]
+[{"name":"Timo Baggins","pNum":"1113","memberID":2,"boatList":[{"type":"Sailboat","length":333}]},{"name":"Erik J-Bag","pNum":"7654","memberID":3,"boatList":[]}]

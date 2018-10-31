@@ -58,29 +58,15 @@ public class Console {
 		String pNum = scan.nextLine();
 		return pNum;
 	}
+	
 	public int askForID() {
-		while(true) {
-			readInput();
-			int badInput = -1;
-			if (userInput == badInput) {
-				return badInput;
-			}
-			else {
-				return userInput;
-			}
-		}
+		readInput();
+		return userInput;
 	}
+	
 	public int askForBoatID() {
-		while(true) {
-			readInput();
-			int badInput = -1;
-			if (userInput == badInput) {
-				return badInput;
-			}
-			else {
-				return userInput;
-			}
-		}
+		readInput();
+		return userInput;
 	}
 	
 	public void displayCompactInfo(String name, int memberID, int numberOfBoats) {						
